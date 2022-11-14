@@ -17,11 +17,11 @@
         <img class="profile__avatar" src="./images/profile-avatar.jpeg" alt="аватар">
         <div class="profile__info">
           <h1 class="profile__title">Жак-Ив Кусто</h1>
-          <img class="profile__edit-button hovered-link" src="./images/profile-edit.svg" alt="карандаш">
+          <button class="profile__edit-button hovered-link" type="button"></button>
           <p class="profile__subtitle">Исследователь океана</p>
         </div> 
       </div>
-      <img class="profile__add-button hovered-link" src="./images/profile-plus.svg" alt="плюс">
+      <button class="profile__add-button hovered-link" type="button"></button>
     </section>
     <section class="elements">
       <ul class="elements__list">
@@ -29,42 +29,42 @@
           <img class="element__image" src="./images/element-card-1.jpeg" alt="карачаевск">
           <div class="element__info">
             <h2 class="element__title">Карачаевск</h2>
-            <img class="element__like" src="./images/element-like-disabled.svg" alt="лайк">
+            <button class="element__like" type="button"></button>
           </div>
         </li>
         <li class="element">
           <img class="element__image" src="./images/element-card-2.jpeg" alt="эльбрус">
           <div class="element__info">
             <h2 class="element__title">Гора Эльбрус</h2>
-            <img class="element__like" src="./images/element-like-disabled.svg" alt="лайк">
+            <button class="element__like" type="button"></button>
           </div>
         </li>
         <li class="element">
           <img class="element__image" src="./images/element-card-3.jpeg" alt="домбай">
           <div class="element__info">
             <h2 class="element__title">Домбай</h2>
-            <img class="element__like" src="./images/element-like-disabled.svg" alt="лайк">
+            <button class="element__like" type="button"></button>
           </div>
         </li>
         <li class="element">
           <img class="element__image" src="./images/element-card-4.jpeg" alt="эльбрус">
           <div class="element__info">
             <h2 class="element__title">Гора Эльбрус</h2>
-            <img class="element__like" src="./images/element-like-disabled.svg" alt="лайк">
+            <button class="element__like" type="button"></button>
           </div>
         </li>
         <li class="element">
           <img class="element__image" src="./images/element-card-5.jpeg" alt="домбай">
           <div class="element__info">
             <h2 class="element__title">Домбай</h2>
-            <img class="element__like" src="./images/element-like-disabled.svg" alt="лайк">
+            <button class="element__like" type="button"></button>
           </div>
         </li>
         <li class="element">
           <img class="element__image" src="./images/element-card-6.jpeg" alt="карачаево">
           <div class="element__info">
             <h2 class="element__title">Карачаево-Черкессия</h2>
-            <img class="element__like" src="./images/element-like-disabled.svg" alt="лайк">
+            <button class="element__like" type="button"></button>
           </div>
         </li>
       </ul>
@@ -74,17 +74,15 @@
     <p class="footer__copyright">© 2022 Mesto Russia</p>
   </footer>
   <div class="popup">
-    <form class="popup__container">
-      <div>
+    <div class="popup__container">
+      <form name="edit-form">
         <h2 class="popup__title">Редактировать профиль</h2>
-        <label for="nameInput"></label>
-        <input id="nameInput" class="popup__field" type="text" name="name" maxlength="15">
-        <label for="jobInput"></label>
-        <input id="jobInput" class="popup__field" type="text" name="job" maxlength="30">
-      </div>
-      <input class="popup__save-button" type="submit" name="save" value="Сохранить">
-      <img class="popup__closer hovered-link" src="./images/edit-form-close.svg" alt="крестик">
-    </form>
+        <input id="nameInput" class="popup__field" type="text" name="name" maxlength="15" placeholder="Введите имя" required>
+        <input id="jobInput" class="popup__field" type="text" name="job" maxlength="30" placeholder="Введите профессию" required>
+        <input class="popup__save-button" type="submit" name="save" value="Сохранить">
+      </form>
+      <button class="popup__closer hovered-link" type="button"></button>
+    </div>
   </div>
   <script src="./scripts/index.js"></script>
 </body>
