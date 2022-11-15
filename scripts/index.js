@@ -5,7 +5,7 @@ const popupElement = document.querySelector('.popup');
 const popupCloseButtonElement = popupElement.querySelector('.popup__closer');
 const popupOpenButtonElement = document.querySelector('.profile__edit-button');
 
-let formElement = document.querySelector('.popup__container');
+let formElement = document.querySelector('form[name="edit-form"]');
 let nameInput = formElement.querySelector('#nameInput');
 let jobInput = formElement.querySelector('#jobInput');
 
@@ -25,8 +25,8 @@ const closePopup = function() {
 // открытие попапа
 const openPopup = function () {
   // заполняем поля формы значениями со страницы
-  nameInput.setAttribute('value', profileTitleElement.textContent);
-  jobInput.setAttribute('value', profileSubtitleElement.textContent);
+  nameInput.value = profileTitleElement.textContent;
+  jobInput.value = profileSubtitleElement.textContent;
   popupElement.classList.add('popup_opened');
 }
 
