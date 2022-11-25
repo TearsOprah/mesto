@@ -25,55 +25,14 @@
     </section>
     <section class="elements">
       <ul class="elements__list">
-        <li class="element">
-          <img class="element__image" src="./images/element-card-1.jpeg" alt="карачаевск">
-          <div class="element__info">
-            <h2 class="element__title">Карачаевск</h2>
-            <button class="element__like" type="button"></button>
-          </div>
-        </li>
-        <li class="element">
-          <img class="element__image" src="./images/element-card-2.jpeg" alt="эльбрус">
-          <div class="element__info">
-            <h2 class="element__title">Гора Эльбрус</h2>
-            <button class="element__like" type="button"></button>
-          </div>
-        </li>
-        <li class="element">
-          <img class="element__image" src="./images/element-card-3.jpeg" alt="домбай">
-          <div class="element__info">
-            <h2 class="element__title">Домбай</h2>
-            <button class="element__like" type="button"></button>
-          </div>
-        </li>
-        <li class="element">
-          <img class="element__image" src="./images/element-card-4.jpeg" alt="эльбрус">
-          <div class="element__info">
-            <h2 class="element__title">Гора Эльбрус</h2>
-            <button class="element__like" type="button"></button>
-          </div>
-        </li>
-        <li class="element">
-          <img class="element__image" src="./images/element-card-5.jpeg" alt="домбай">
-          <div class="element__info">
-            <h2 class="element__title">Домбай</h2>
-            <button class="element__like" type="button"></button>
-          </div>
-        </li>
-        <li class="element">
-          <img class="element__image" src="./images/element-card-6.jpeg" alt="карачаево">
-          <div class="element__info">
-            <h2 class="element__title">Карачаево-Черкессия</h2>
-            <button class="element__like" type="button"></button>
-          </div>
-        </li>
+
       </ul>
     </section>
   </main>
   <footer class="footer">
     <p class="footer__copyright">© 2022 Mesto Russia</p>
   </footer>
-  <div class="popup">
+  <div class="popup popup_type_edit">
     <div class="popup__container">
       <form name="edit-form">
         <h2 class="popup__title">Редактировать профиль</h2>
@@ -81,9 +40,29 @@
         <input id="jobInput" class="popup__field" type="text" name="job" maxlength="30" placeholder="Введите профессию" required>
         <input class="popup__save-button" type="submit" name="save" value="Сохранить">
       </form>
-      <button class="popup__closer hovered-link" type="button" aria-label="Закрыть"></button>
+      <button class="popup__closer hovered-link popup__closer_type_edit" type="button" aria-label="Закрыть"></button>
     </div>
   </div>
+  <div class="popup popup_type_add">
+    <div class="popup__container">
+      <form name="add-form">
+        <h2 class="popup__title">Новое место</h2>
+        <input id="cardNameInput" class="popup__field" type="text" name="cardName" maxlength="20" placeholder="Название" required>
+        <input id="linkInput" class="popup__field" type="text" name="link" maxlength="1000" placeholder="Ссылка на картинку" required>
+        <input class="popup__save-button" type="submit" name="save" value="Создать">
+      </form>
+      <button class="popup__closer hovered-link popup__closer_type_add" type="button" aria-label="Закрыть"></button>
+    </div>
+  </div>
+  <template class="card-template">
+    <li class="element">
+      <img class="element__image" src="" alt="">
+      <div class="element__info">
+        <h2 class="element__title"></h2>
+        <button class="element__like" type="button"></button>
+      </div>
+    </li>
+  </template>
   <script src="./scripts/index.js"></script>
 </body>
 </html>
