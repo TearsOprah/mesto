@@ -1,5 +1,5 @@
-let profileTitleElement = document.querySelector('.profile__title');
-let profileSubtitleElement = document.querySelector('.profile__subtitle');
+const profileTitleElement = document.querySelector('.profile__title');
+const profileSubtitleElement = document.querySelector('.profile__subtitle');
 
 const popupElement = document.querySelector('.popup');
 const popupEditElement = document.querySelector('.popup_type_edit');
@@ -9,16 +9,16 @@ const popupAddCloseButtonElement = document.querySelector('.popup__closer_type_a
 const popupEditOpenButtonElement = document.querySelector('.profile__edit-button');
 const popupAddOpenButtonElement = document.querySelector('.profile__add-button');
 
-let formEditElement = document.querySelector('form[name="edit-form"]');
-let nameInput = formEditElement.querySelector('#nameInput');
-let jobInput = formEditElement.querySelector('#jobInput');
+const formEditElement = document.querySelector('form[name="edit-form"]');
+const nameInput = formEditElement.querySelector('#nameInput');
+const jobInput = formEditElement.querySelector('#jobInput');
 
-let formAddElement = document.querySelector('form[name="add-form"]');
-let cardNameInput = formAddElement.querySelector('#cardNameInput');
-let linkInput = formAddElement.querySelector('#linkInput');
+const formAddElement = document.querySelector('form[name="add-form"]');
+const cardNameInput = formAddElement.querySelector('#cardNameInput');
+const linkInput = formAddElement.querySelector('#linkInput');
 
 const cardsList = document.querySelector('.elements__list');
-const cardTemplate = document.querySelector('.card-template').content;
+const cardTemplate = document.querySelector('.card-template').content.querySelector('.element');
 
 // дефолтные карточки
 const initialCards = [
@@ -48,37 +48,75 @@ const initialCards = [
   }
 ];
 
-// добавление карточек в разметку
-function outputCard(list) {
-  list.forEach(function(card) {
-    const cardElement = cardTemplate.cloneNode(true);
+// создание карточки
+function createElement(item) {
+  const card = cardTemplate.cloneNode(true);
+  // находим заголовок, картинку, лайк и удаление
+  const cardTitle = card.querySelector('.element__title');
+  const cardImage = card.querySelector('.element__image');
+  const cardLikeButton = card.querySelector('.element__like');
+  const cardDeleteButton = card.querySelector('.element__delete');
 
-    cardElement.querySelector('.element__image').setAttribute('src', card.link);
-    cardElement.querySelector('.element__image').setAttribute('alt', card.name);
-    cardElement.querySelector('.element__title').textContent = card.name;
-  
-    cardsList.prepend(cardElement);
-  })
+  // прослушиватели для удаления и лайка
+  cardLikeButton.addEventListener('click', handleLikeButtonClick);
+  cardDeleteButton.addEventListener('click', handleDeleteButtonClick);
+
+  // задаем заголовок и картинку
+  cardTitle.textContent = item.name;
+  cardImage.setAttribute('src', item.link);
+  cardImage.setAttribute('alt', item.name);
+
+  // возвращаем карточку
+  return card;
 }
 
-// добавляем дефолтные карточки
-outputCard(initialCards);
+// накидывание лайка
+const handleLikeButtonClick = (e) => {
+  e.target.classList.toggle('element__like_active')
+  console.log(e.target.classList)
+}
+
+// удаление
+const handleDeleteButtonClick = (e) => {
+  e.target.closest('.element').remove();
+}
+
+// рендер карточки
+const renderCard = (item, wrapElement) => {
+  // получаем карточку
+  const element = createElement(item);
+  // добавляем карточку в лист
+  wrapElement.prepend(element);
+}
+
+// проходим по стартовому массиву и применяем к каждому элементу функцию рендера карточки
+initialCards.forEach(function(item) {
+  renderCard(item, cardsList);
+})
+
+// создание новых карточек из формы
+const handleAddFormSubmit = (e) => {
+  e.preventDefault();
+
+  // получаем значения из формы
+  const card = {
+    name: cardNameInput.value,
+    link: linkInput.value
+  }
+
+  // добавляем в верстку
+  renderCard(card, cardsList);
+
+  // закрываем попап
+  closeAddPopup();
+}
 
 // редактирование имени и информации
-function formSubmitHandler(evt) {
+function handleEditFormSubmit(evt) {
   evt.preventDefault();
   profileTitleElement.textContent = nameInput.value;
   profileSubtitleElement.textContent = jobInput.value;
   closeEditPopup();
-}
-
-// добавление новых карточек
-function addCardSubmitHandler(evt) {
-  evt.preventDefault();
-  const newCardList = [];
-  newCardList.unshift({name: cardNameInput.value, link: linkInput.value});
-  outputCard(newCardList);
-  closeAddPopup();
 }
 
 // закрытие попапа редактирования
@@ -108,5 +146,5 @@ popupAddOpenButtonElement.addEventListener('click', openAddPopup);
 popupAddCloseButtonElement.addEventListener('click', closeAddPopup);
 popupEditOpenButtonElement.addEventListener('click', openEditPopup);
 popupEditCloseButtonElement.addEventListener('click', closeEditPopup);
-formEditElement.addEventListener('submit', formSubmitHandler); 
-formAddElement.addEventListener('submit', addCardSubmitHandler);
+formEditElement.addEventListener('submit', handleEditFormSubmit); 
+formAddElement.addEventListener('submit', handleAddFormSubmit);
