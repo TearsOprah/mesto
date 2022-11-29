@@ -81,7 +81,11 @@ const closeImagePopup = function() {
 }
 
 // открытие попапа картинки
-const openImagePopup = function () {
+const openImagePopup = function (e) {
+  const image = document.querySelector('.popup__image');
+  const description = document.querySelector('.popup__description');
+  image.setAttribute('src', e.target.src);
+  description.textContent = e.target.alt;
   popupImageElement.classList.add('popup_opened');
 }
 
@@ -160,7 +164,6 @@ const closeAddPopup = function() {
   popupAddElement.classList.remove('popup_opened');
 }
 
-// берем карточку -> вешаем на нее обработчик события клик -> по клику находим элемент карточки картинка -> передаем ее в функцию открытия попапа с картинкой
 
 popupAddOpenButtonElement.addEventListener('click', openAddPopup);
 popupAddCloseButtonElement.addEventListener('click', closeAddPopup);

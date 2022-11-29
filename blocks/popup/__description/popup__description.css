@@ -1,7 +1,6 @@
 .popup__description {
   margin: 0;
   padding: 0;
-  border: 3px solid blue;
   position: absolute;
   bottom: -25px;
   left: 0;
