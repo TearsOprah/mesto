@@ -85,6 +85,7 @@ const openImagePopup = function (e) {
   const image = document.querySelector('.popup__image');
   const description = document.querySelector('.popup__description');
   image.setAttribute('src', e.target.src);
+  image.setAttribute('alt', e.target.alt);
   description.textContent = e.target.alt;
   popupImageElement.classList.add('popup_opened');
 }
