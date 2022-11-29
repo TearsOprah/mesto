@@ -4,8 +4,10 @@ const profileSubtitleElement = document.querySelector('.profile__subtitle');
 const popupElement = document.querySelector('.popup');
 const popupEditElement = document.querySelector('.popup_type_edit');
 const popupAddElement = document.querySelector('.popup_type_add');
+const popupImageElement = document.querySelector('.popup_type_image');
 const popupEditCloseButtonElement = document.querySelector('.popup__closer_type_edit');
 const popupAddCloseButtonElement = document.querySelector('.popup__closer_type_add');
+const popupImageCloseButtonElement = document.querySelector('.popup__closer_type_image');
 const popupEditOpenButtonElement = document.querySelector('.profile__edit-button');
 const popupAddOpenButtonElement = document.querySelector('.profile__add-button');
 
@@ -61,6 +63,9 @@ function createElement(item) {
   cardLikeButton.addEventListener('click', handleLikeButtonClick);
   cardDeleteButton.addEventListener('click', handleDeleteButtonClick);
 
+  // прослушиватель для клика по картинке
+  cardImage.addEventListener('click', openImagePopup);
+
   // задаем заголовок и картинку
   cardTitle.textContent = item.name;
   cardImage.setAttribute('src', item.link);
@@ -69,6 +74,19 @@ function createElement(item) {
   // возвращаем карточку
   return card;
 }
+
+// закрытие попапа картинки
+const closeImagePopup = function() {
+  popupImageElement.classList.remove('popup_opened');
+}
+
+// открытие попапа картинки
+const openImagePopup = function () {
+  popupImageElement.classList.add('popup_opened');
+}
+
+// прослушиватель закрытия картинки
+popupImageCloseButtonElement.addEventListener('click', closeImagePopup);
 
 // накидывание лайка
 const handleLikeButtonClick = (e) => {
@@ -141,6 +159,8 @@ const openAddPopup = function () {
 const closeAddPopup = function() {
   popupAddElement.classList.remove('popup_opened');
 }
+
+// берем карточку -> вешаем на нее обработчик события клик -> по клику находим элемент карточки картинка -> передаем ее в функцию открытия попапа с картинкой
 
 popupAddOpenButtonElement.addEventListener('click', openAddPopup);
 popupAddCloseButtonElement.addEventListener('click', closeAddPopup);

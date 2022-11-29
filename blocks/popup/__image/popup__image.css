@@ -1,0 +1,9 @@
+.popup__image {
+  margin: 0;
+  padding: 0;
+  border: 2px solid red;
+  min-width: 30vw;
+  min-height: 30vh;
+  max-width: 75vw;
+  max-height: 75vh;
+}
