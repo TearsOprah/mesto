@@ -4,9 +4,6 @@ const profileSubtitleElement = document.querySelector('.profile__subtitle');
 const popupEditElement = document.querySelector('.popup_type_edit');
 const popupAddElement = document.querySelector('.popup_type_add');
 const popupImageElement = document.querySelector('.popup_type_image');
-const popupEditCloseButtonElement = document.querySelector('.popup__closer_type_edit');
-const popupAddCloseButtonElement = document.querySelector('.popup__closer_type_add');
-const popupImageCloseButtonElement = document.querySelector('.popup__closer_type_image');
 const popupEditOpenButtonElement = document.querySelector('.profile__edit-button');
 const popupAddOpenButtonElement = document.querySelector('.profile__add-button');
 
@@ -23,6 +20,8 @@ const cardTemplate = document.querySelector('.card-template').content.querySelec
 
 const image = document.querySelector('.popup__image');
 const description = document.querySelector('.popup__description');
+
+const popups = document.querySelectorAll('.popup');
 
 // создание карточки
 function createElement(item) {
@@ -53,7 +52,7 @@ function createElement(item) {
 const openPopup = (popup) => {
   popup.classList.add('popup_opened');
   document.addEventListener('keyup', handleKeyUp);
-  popup.addEventListener('mousedown', closeByClickOnOverlay);
+  // popup.addEventListener('mousedown', closeByClickOnOverlay);
 }
 
 // открытие попапа картинки
@@ -74,6 +73,9 @@ const openEditPopup = function () {
 
 // открытие попапа добавления карточек
 const openAddPopup = function () {
+  // отключаем кнопку и накидываем класс инвалид
+  popupAddElement.querySelector('.popup__save-button').setAttribute('disabled', '')
+  popupAddElement.querySelector('.popup__save-button').classList.add('popup__save-button_invalid')
   openPopup(popupAddElement);
 }
 
@@ -81,19 +83,6 @@ const openAddPopup = function () {
 const closePopup = (popup) => {
   popup.classList.remove('popup_opened');
   document.removeEventListener('keyup', handleKeyUp);
-  popup.removeEventListener('mousedown', closeByClickOnOverlay);
-}
-
-const closeImagePopup = () => {
-  closePopup(popupImageElement);
-}
-
-const closeAddPopup = () => {
-  closePopup(popupAddElement);
-}
-
-const closeEditPopup = () => {
-  closePopup(popupEditElement);
 }
 
 // закрытие на esc
@@ -103,15 +92,6 @@ const handleKeyUp = (evt) => {
     closePopup(popup);
   }
 }
-
-// закрытие по клику вне формы
-const closeByClickOnOverlay = (evt) => {
-  const popup = document.querySelector('.popup_opened');
-  if (!evt.target.closest('.popup__container') && !evt.target.closest('.popup__image-container')) {
-    closePopup(popup);
-  }
-}
-
 
 // накидывание лайка
 const handleLikeButtonClick = (e) => {
@@ -165,12 +145,19 @@ function handleEditFormSubmit(evt) {
 }
 
 
-
 // прослушиватели
-popupImageCloseButtonElement.addEventListener('click', closeImagePopup);
+popups.forEach((popup) => {
+  popup.addEventListener('mousedown', (evt) => {
+    if (evt.target.classList.contains('popup_opened')) {
+      closePopup(popup);
+    }
+    if (evt.target.classList.contains('popup__closer')) {
+      closePopup(popup)
+    }
+  })
+})
+
 popupAddOpenButtonElement.addEventListener('click', openAddPopup);
-popupAddCloseButtonElement.addEventListener('click', closeAddPopup);
 popupEditOpenButtonElement.addEventListener('click', openEditPopup);
-popupEditCloseButtonElement.addEventListener('click', closeEditPopup);
 formEditElement.addEventListener('submit', handleEditFormSubmit); 
 formAddElement.addEventListener('submit', handleAddFormSubmit);
