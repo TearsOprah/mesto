@@ -21,6 +21,8 @@ const linkInput = formAddElement.querySelector('#linkInput');
 const cardsContainer = document.querySelector('.elements__list');
 const cardTemplate = document.querySelector('.card-template').content.querySelector('.element');
 
+const image = document.querySelector('.popup__image');
+const description = document.querySelector('.popup__description');
 
 // создание карточки
 function createElement(item) {
@@ -51,13 +53,11 @@ function createElement(item) {
 const openPopup = (popup) => {
   popup.classList.add('popup_opened');
   document.addEventListener('keyup', handleKeyUp);
-  popup.addEventListener('click', closeByClickOnOverlay);
+  popup.addEventListener('mousedown', closeByClickOnOverlay);
 }
 
 // открытие попапа картинки
 const openImagePopup = function (e) {
-  const image = document.querySelector('.popup__image');
-  const description = document.querySelector('.popup__description');
   image.setAttribute('src', e.target.src);
   image.setAttribute('alt', e.target.alt);
   description.textContent = e.target.alt;
@@ -78,9 +78,10 @@ const openAddPopup = function () {
 }
 
 // закрытие попапов
-const closePopup = (e) => {
-  e.classList.remove('popup_opened');
+const closePopup = (popup) => {
+  popup.classList.remove('popup_opened');
   document.removeEventListener('keyup', handleKeyUp);
+  popup.removeEventListener('mousedown', closeByClickOnOverlay);
 }
 
 const closeImagePopup = () => {
@@ -97,8 +98,8 @@ const closeEditPopup = () => {
 
 // закрытие на esc
 const handleKeyUp = (evt) => {
-  const popup = document.querySelector('.popup_opened');
   if (evt.key === 'Escape') {
+    const popup = document.querySelector('.popup_opened');
     closePopup(popup);
   }
 }
@@ -148,6 +149,9 @@ const handleAddFormSubmit = (e) => {
   // добавляем в верстку
   renderCard(card, cardsContainer);
 
+  // очищаем поля в форме
+  e.target.reset()
+
   // закрываем попап
   closePopup(popupAddElement);
 }
@@ -159,6 +163,8 @@ function handleEditFormSubmit(evt) {
   profileSubtitleElement.textContent = jobInput.value;
   closePopup(popupEditElement);
 }
+
+
 
 // прослушиватели
 popupImageCloseButtonElement.addEventListener('click', closeImagePopup);
