@@ -22,6 +22,60 @@ const linkInput = formAddElement.querySelector('#linkInput');
 const cardsContainer = document.querySelector('.elements__list');
 const cardTemplate = document.querySelector('.card-template').content.querySelector('.element');
 
+const forms = [...document.querySelectorAll('form')]
+
+
+// показ ошибки
+const checkInputValidity = (input) => {
+  const error = document.querySelector(`#${input.id}-error`);
+
+  if (input.validity.valid) {
+    // убираем ошибку
+    error.textContent = '';
+  } else {
+    // показать ошибку
+    error.textContent = input.validationMessage;
+  }
+}
+
+// отключение кнопки
+const toggleButtonValid = (inputs, button) => {
+  const isFormValid = inputs.every((input) => input.validity.valid)
+
+  if (isFormValid) {
+    button.classList.remove('popup__save-button_invalid');
+  } else {
+    button.classList.add('popup__save-button_invalid');
+  }
+}
+
+// проходим по всем формам для валидации
+forms.forEach((form) => {
+  // находим все инпуты и кнопку
+  const inputs = [...form.querySelectorAll('.popup__field')];
+  const button = form.querySelector('.popup__save-button');
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+  })
+
+  // валидация инпутов
+  inputs.forEach((input) => {
+    input.addEventListener('input', () => {
+      checkInputValidity(input);
+      toggleButtonValid(inputs, button);
+    })
+  })
+})
+
+
+
+
+
+
+
+
+
 // создание карточки
 function createElement(item) {
   const card = cardTemplate.cloneNode(true);

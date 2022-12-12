@@ -37,8 +37,10 @@
     <div class="popup__container">
       <form name="edit-form">
         <h2 class="popup__title">Редактировать профиль</h2>
-        <input id="nameInput" class="popup__field" type="text" name="name" maxlength="15" placeholder="Введите имя" required>
-        <input id="jobInput" class="popup__field" type="text" name="job" maxlength="30" placeholder="Введите профессию" required>
+        <input id="nameInput" class="popup__field" type="text" name="name" minlength="2" maxlength="40" placeholder="Введите имя" required>
+        <span id="nameInput-error" class="error"></span>
+        <input id="jobInput" class="popup__field" type="text" name="job" minlength="2" maxlength="200" placeholder="Введите профессию" required>
+        <span id="jobInput-error" class="error"></span>
         <input class="popup__save-button" type="submit" name="save" value="Сохранить">
       </form>
       <button class="popup__closer hovered-link popup__closer_type_edit" type="button" aria-label="Закрыть"></button>
@@ -49,9 +51,11 @@
     <div class="popup__container">
       <form name="add-form">
         <h2 class="popup__title">Новое место</h2>
-        <input id="cardNameInput" class="popup__field" type="text" name="cardName" maxlength="20" placeholder="Название" required>
+        <input id="cardNameInput" class="popup__field" type="text" name="cardName" minlength="2" maxlength="30" placeholder="Название" required>
+        <span id="cardNameInput-error" class="error"></span>
         <input id="linkInput" class="popup__field" type="url" name="link" maxlength="1000" placeholder="Ссылка на картинку" required>
-        <input class="popup__save-button" type="submit" name="save" value="Создать">
+        <span id="linkInput-error" class="error"></span>
+        <input class="popup__save-button popup__save-button_invalid" type="submit" name="save" value="Создать">
       </form>
       <button class="popup__closer hovered-link popup__closer_type_add" type="button" aria-label="Закрыть"></button>
     </div>
