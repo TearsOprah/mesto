@@ -22,53 +22,71 @@ const linkInput = formAddElement.querySelector('#linkInput');
 const cardsContainer = document.querySelector('.elements__list');
 const cardTemplate = document.querySelector('.card-template').content.querySelector('.element');
 
-const forms = [...document.querySelectorAll('form')]
 
 
 // показ ошибки
-const checkInputValidity = (input) => {
+const checkInputValidity = (input, config) => {
   const error = document.querySelector(`#${input.id}-error`);
 
   if (input.validity.valid) {
     // убираем ошибку
     error.textContent = '';
+    error.classList.remove(config.errorClass);
+    input.classList.remove(config.inputErrorClass);
   } else {
     // показать ошибку
     error.textContent = input.validationMessage;
+    error.classList.add(config.errorClass);
+    input.classList.add(config.inputErrorClass);
   }
 }
 
 // отключение кнопки
-const toggleButtonValid = (inputs, button) => {
+const toggleButtonValid = (inputs, button, config) => {
   const isFormValid = inputs.every((input) => input.validity.valid)
 
   if (isFormValid) {
-    button.classList.remove('popup__save-button_invalid');
+    button.classList.remove(config.inactiveButtonClass);
   } else {
-    button.classList.add('popup__save-button_invalid');
+    button.classList.add(config.inactiveButtonClass);
   }
 }
 
-// проходим по всем формам для валидации
-forms.forEach((form) => {
-  // находим все инпуты и кнопку
-  const inputs = [...form.querySelectorAll('.popup__field')];
-  const button = form.querySelector('.popup__save-button');
+const enableValidation = (config) => {
+  const { formSelector, inputSelector, submitButtonSelector, ...restConfig } = config
+  const forms = [...document.querySelectorAll(formSelector)]
 
-  form.addEventListener('submit', (e) => {
-    e.preventDefault();
-  })
+  // проходим по всем формам для валидации
+  forms.forEach((form) => {
+    // находим все инпуты и кнопку
+    const inputs = [...form.querySelectorAll(inputSelector)];
+    const button = form.querySelector(submitButtonSelector);
 
-  // валидация инпутов
-  inputs.forEach((input) => {
-    input.addEventListener('input', () => {
-      checkInputValidity(input);
-      toggleButtonValid(inputs, button);
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+    })
+
+    // валидация инпутов
+    inputs.forEach((input) => {
+      input.addEventListener('input', () => {
+        checkInputValidity(input, restConfig);
+        toggleButtonValid(inputs, button, restConfig);
+      })
     })
   })
-})
+}
 
+// включение валидации вызовом enableValidation
+// все настройки передаются при вызове
 
+enableValidation({
+  formSelector: '.popup__form',
+  inputSelector: '.popup__field',
+  submitButtonSelector: '.popup__save-button',
+  inactiveButtonClass: 'popup__save-button_invalid',
+  inputErrorClass: 'popup__field_type_error',
+  errorClass: 'popup__error_visible'
+});
 
 
 
@@ -104,6 +122,8 @@ function createElement(item) {
 // открытие попапов
 const openPopup = (popup) => {
   popup.classList.add('popup_opened');
+  document.addEventListener('keyup', handleKeyUp);
+  popup.addEventListener('click', closeByClickOnOverlay);
 }
 
 // открытие попапа картинки
@@ -132,6 +152,7 @@ const openAddPopup = function () {
 // закрытие попапов
 const closePopup = (e) => {
   e.classList.remove('popup_opened');
+  document.removeEventListener('keyup', handleKeyUp);
 }
 
 const closeImagePopup = () => {
@@ -145,6 +166,23 @@ const closeAddPopup = () => {
 const closeEditPopup = () => {
   closePopup(popupEditElement);
 }
+
+// закрытие на esc
+const handleKeyUp = (evt) => {
+  const popup = document.querySelector('.popup_opened');
+  if (evt.key === 'Escape') {
+    closePopup(popup);
+  }
+}
+
+// закрытие по клику вне формы
+const closeByClickOnOverlay = (evt) => {
+  const popup = document.querySelector('.popup_opened');
+  if (!evt.target.closest('.popup__container') && !evt.target.closest('.popup__image-container')) {
+    closePopup(popup);
+  }
+}
+
 
 // накидывание лайка
 const handleLikeButtonClick = (e) => {
