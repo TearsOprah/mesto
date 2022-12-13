@@ -6,6 +6,7 @@ const popupAddElement = document.querySelector('.popup_type_add');
 const popupImageElement = document.querySelector('.popup_type_image');
 const popupEditOpenButtonElement = document.querySelector('.profile__edit-button');
 const popupAddOpenButtonElement = document.querySelector('.profile__add-button');
+const popupSaveButtonElement = popupAddElement.querySelector('.popup__save-button');
 
 const formEditElement = document.querySelector('form[name="edit-form"]');
 const nameInput = formEditElement.querySelector('#nameInput');
@@ -74,8 +75,8 @@ const openEditPopup = function () {
 // открытие попапа добавления карточек
 const openAddPopup = function () {
   // отключаем кнопку и накидываем класс инвалид
-  popupAddElement.querySelector('.popup__save-button').setAttribute('disabled', '')
-  popupAddElement.querySelector('.popup__save-button').classList.add('popup__save-button_invalid')
+  popupSaveButtonElement.setAttribute('disabled', '');
+  popupSaveButtonElement.classList.add('popup__save-button_invalid');
   openPopup(popupAddElement);
 }
 
