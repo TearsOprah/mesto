@@ -1,6 +1,4 @@
-
-
-class FormValidator {
+export default class FormValidator {
   constructor(config, formElement) {
     this._config = config;
     this._formElement = formElement;
@@ -62,19 +60,3 @@ class FormValidator {
     this._setEventListeners();
   }
 }
-
-const config = {
-  formSelector: '.popup__form',
-  inputSelector: '.popup__field',
-  submitButtonSelector: '.popup__save-button',
-  inactiveButtonClass: 'popup__save-button_invalid',
-  inputErrorClass: 'popup__field_type_error',
-  errorClass: 'popup__error_visible'
-}
-
-
-const editValidator = new FormValidator(config, formEditElement);
-editValidator.enableValidation();
-
-const addValidator = new FormValidator(config, formAddElement);
-addValidator.enableValidation();

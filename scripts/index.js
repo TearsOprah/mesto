@@ -1,3 +1,6 @@
+import Card from "./Card.js";
+import FormValidator from "./FormValidator.js";
+
 // необходимые константы
 const profileTitleElement = document.querySelector('.profile__title'),
   profileSubtitleElement = document.querySelector('.profile__subtitle'),
@@ -18,6 +21,21 @@ const profileTitleElement = document.querySelector('.profile__title'),
   formAddElement = document.querySelector('form[name="add-form"]'),
   cardNameInput = formAddElement.querySelector('#cardNameInput'),
   linkInput = formAddElement.querySelector('#linkInput');
+
+const config = {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__field',
+  submitButtonSelector: '.popup__save-button',
+  inactiveButtonClass: 'popup__save-button_invalid',
+  inputErrorClass: 'popup__field_type_error',
+  errorClass: 'popup__error_visible'
+}
+
+// валидация форм
+const editValidator = new FormValidator(config, formEditElement);
+editValidator.enableValidation();
+const addValidator = new FormValidator(config, formAddElement);
+addValidator.enableValidation();
 
 // открытие попапов
 const openPopup = (popup) => {
