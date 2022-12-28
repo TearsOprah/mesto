@@ -1,59 +1,28 @@
-const profileTitleElement = document.querySelector('.profile__title');
-const profileSubtitleElement = document.querySelector('.profile__subtitle');
-
-const popupEditElement = document.querySelector('.popup_type_edit');
-const popupAddElement = document.querySelector('.popup_type_add');
-const popupImageElement = document.querySelector('.popup_type_image');
-const popupEditOpenButtonElement = document.querySelector('.profile__edit-button');
-const popupAddOpenButtonElement = document.querySelector('.profile__add-button');
-const popupSaveButtonElement = popupAddElement.querySelector('.popup__save-button');
-
-const formEditElement = document.querySelector('form[name="edit-form"]');
-const nameInput = formEditElement.querySelector('#nameInput');
-const jobInput = formEditElement.querySelector('#jobInput');
-
-const formAddElement = document.querySelector('form[name="add-form"]');
-const cardNameInput = formAddElement.querySelector('#cardNameInput');
-const linkInput = formAddElement.querySelector('#linkInput');
-
-const cardsContainer = document.querySelector('.elements__list');
-const cardTemplate = document.querySelector('.card-template').content.querySelector('.element');
-
-const image = document.querySelector('.popup__image');
-const description = document.querySelector('.popup__description');
-
-const popups = document.querySelectorAll('.popup');
-
-// создание карточки
-function createElement(item) {
-  const card = cardTemplate.cloneNode(true);
-  // находим заголовок, картинку, лайк и удаление
-  const cardTitle = card.querySelector('.element__title');
-  const cardImage = card.querySelector('.element__image');
-  const cardLikeButton = card.querySelector('.element__like');
-  const cardDeleteButton = card.querySelector('.element__delete');
-
-  // прослушиватели для удаления и лайка
-  cardLikeButton.addEventListener('click', handleLikeButtonClick);
-  cardDeleteButton.addEventListener('click', handleDeleteButtonClick);
-
-  // прослушиватель для клика по картинке
-  cardImage.addEventListener('click', openImagePopup);
-
-  // задаем заголовок и картинку
-  cardTitle.textContent = item.name;
-  cardImage.setAttribute('src', item.link);
-  cardImage.setAttribute('alt', item.name);
-
-  // возвращаем карточку
-  return card;
-}
+// необходимые константы
+const profileTitleElement = document.querySelector('.profile__title'),
+  profileSubtitleElement = document.querySelector('.profile__subtitle'),
+  popupEditElement = document.querySelector('.popup_type_edit'),
+  popupAddElement = document.querySelector('.popup_type_add'),
+  popupImageElement = document.querySelector('.popup_type_image'),
+  popupEditOpenButtonElement = document.querySelector('.profile__edit-button'),
+  popupAddOpenButtonElement = document.querySelector('.profile__add-button'),
+  popupSaveButtonElement = popupAddElement.querySelector('.popup__save-button'),
+  formEditElement = document.querySelector('form[name="edit-form"]'),
+  nameInput = formEditElement.querySelector('#nameInput'),
+  jobInput = formEditElement.querySelector('#jobInput'),
+  image = document.querySelector('.popup__image'),
+  description = document.querySelector('.popup__description'),
+  popups = document.querySelectorAll('.popup'),
+  cardTemplate = document.querySelector('.card-template').content.querySelector('.element'),
+  cardsContainer = document.querySelector('.elements__list'),
+  formAddElement = document.querySelector('form[name="add-form"]'),
+  cardNameInput = formAddElement.querySelector('#cardNameInput'),
+  linkInput = formAddElement.querySelector('#linkInput');
 
 // открытие попапов
 const openPopup = (popup) => {
   popup.classList.add('popup_opened');
   document.addEventListener('keyup', handleKeyUp);
-  // popup.addEventListener('mousedown', closeByClickOnOverlay);
 }
 
 // открытие попапа картинки
@@ -94,49 +63,6 @@ const handleKeyUp = (evt) => {
   }
 }
 
-// накидывание лайка
-const handleLikeButtonClick = (e) => {
-  e.target.classList.toggle('element__like_active')
-}
-
-// удаление
-const handleDeleteButtonClick = (e) => {
-  e.target.closest('.element').remove();
-}
-
-// рендер карточки
-const renderCard = (item, wrapElement) => {
-  // получаем карточку
-  const element = createElement(item);
-  // добавляем карточку в лист
-  wrapElement.prepend(element);
-}
-
-// проходим по стартовому массиву и применяем к каждому элементу функцию рендера карточки
-initialCards.forEach(function(item) {
-  renderCard(item, cardsContainer);
-})
-
-// создание новых карточек из формы
-const handleAddFormSubmit = (e) => {
-  e.preventDefault();
-
-  // получаем значения из формы
-  const card = {
-    name: cardNameInput.value,
-    link: linkInput.value
-  }
-
-  // добавляем в верстку
-  renderCard(card, cardsContainer);
-
-  // очищаем поля в форме
-  e.target.reset()
-
-  // закрываем попап
-  closePopup(popupAddElement);
-}
-
 // редактирование имени и информации
 function handleEditFormSubmit(evt) {
   evt.preventDefault();
@@ -145,6 +71,34 @@ function handleEditFormSubmit(evt) {
   closePopup(popupEditElement);
 }
 
+// проходим по массиву и генерим стартовые карточки, вставляем их в контейнер
+initialCards.forEach(item => {
+  const card = new Card(item, cardTemplate, openImagePopup);
+  const cardElement = card.generateCard();
+  cardsContainer.append(cardElement);
+})
+
+// создание новых карточек из формы
+const handleAddFormSubmit = (e) => {
+  e.preventDefault();
+
+  // получаем значения из формы
+  const data = {
+    name: cardNameInput.value,
+    link: linkInput.value
+  }
+
+  // генерим карточку и вставляем в контейнер
+  const card = new Card(data, cardTemplate, openImagePopup);
+  const cardElement = card.generateCard();
+  cardsContainer.prepend(cardElement);
+
+  // очищаем поля в форме
+  e.target.reset()
+
+  // закрываем попап
+  closePopup(popupAddElement);
+}
 
 // прослушиватели
 popups.forEach((popup) => {
@@ -160,5 +114,5 @@ popups.forEach((popup) => {
 
 popupAddOpenButtonElement.addEventListener('click', openAddPopup);
 popupEditOpenButtonElement.addEventListener('click', openEditPopup);
-formEditElement.addEventListener('submit', handleEditFormSubmit); 
+formEditElement.addEventListener('submit', handleEditFormSubmit);
 formAddElement.addEventListener('submit', handleAddFormSubmit);
