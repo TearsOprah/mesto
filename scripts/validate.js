@@ -1,65 +1,80 @@
-// показ ошибки
-const checkInputValidity = (input, config) => {
-  const error = document.querySelector(`#${input.id}-error`);
 
-  if (input.validity.valid) {
-    // убираем ошибку
-    error.textContent = '';
-    error.classList.remove(config.errorClass);
-    input.classList.remove(config.inputErrorClass);
-  } else {
-    // показать ошибку
-    error.textContent = input.validationMessage;
-    error.classList.add(config.errorClass);
-    input.classList.add(config.inputErrorClass);
+
+class FormValidator {
+  constructor(config, formElement) {
+    this._config = config;
+    this._formElement = formElement;
+    // все инпуты и кнопка
+    this._inputs = Array.from(this._formElement.querySelectorAll(this._config.inputSelector));
+    this._button = this._formElement.querySelector(this._config.submitButtonSelector);
   }
-}
 
-// отключение кнопки
-const toggleButtonValid = (inputs, button, config) => {
-  const isFormValid = inputs.every((input) => input.validity.valid)
+  // Проверка валидности инпутов
+  _checkInputValidity = (inputSelector) => {
+    const error = this._formElement.querySelector(`#${inputSelector.id}-error`);
 
-  if (isFormValid) {
-    button.classList.remove(config.inactiveButtonClass);
-    button.disabled = '';
-  } else {
-    button.classList.add(config.inactiveButtonClass);
-    button.disabled = 'disabled';
+    // если поле валидно
+    if (inputSelector.validity.valid) {
+      // убираем ошибку
+      error.textContent = '';
+      error.classList.remove(this._config.errorClass);
+      inputSelector.classList.remove(this._config.inputErrorClass);
+    } else {
+      // иначе показываем ошибку
+      error.textContent = inputSelector.validationMessage;
+      error.classList.add(this._config.errorClass);
+      inputSelector.classList.add(this._config.inputErrorClass);
+    }
   }
-}
 
-const enableValidation = (config) => {
-  const { formSelector, inputSelector, submitButtonSelector, ...restConfig } = config
-  const forms = [...document.querySelectorAll(formSelector)]
+  // отключение кнопки
+  _toggleButtonValid() {
+    const isFormValid = this._inputs.every((input) => input.validity.valid)
 
-  // проходим по всем формам для валидации
-  forms.forEach((form) => {
-    // находим все инпуты и кнопку
-    const inputs = [...form.querySelectorAll(inputSelector)];
-    const button = form.querySelector(submitButtonSelector);
+    if (isFormValid) {
+      this._button.classList.remove(this._config.inactiveButtonClass);
+      this._button.disabled = '';
+    } else {
+      this._button.classList.add(this._config.inactiveButtonClass);
+      this._button.disabled = 'disabled';
+    }
+  }
 
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
-    })
+  // устанавливаем слушатели
+  _setEventListeners() {
+    // чтоб при открытии попапа кнопка была не активна
+    this._toggleButtonValid()
 
     // валидация инпутов
-    inputs.forEach((input) => {
+    this._inputs.forEach((input) => {
       input.addEventListener('input', () => {
-        checkInputValidity(input, restConfig);
-        toggleButtonValid(inputs, button, restConfig);
+        this._checkInputValidity(input);
+        this._toggleButtonValid();
       })
     })
-  })
+
+    this._formElement.addEventListener('submit', (e) => {
+      e.preventDefault();
+    })
+  }
+
+  enableValidation() {
+    this._setEventListeners();
+  }
 }
 
-// включение валидации вызовом enableValidation
-// все настройки передаются при вызове
-
-enableValidation({
+const config = {
   formSelector: '.popup__form',
   inputSelector: '.popup__field',
   submitButtonSelector: '.popup__save-button',
   inactiveButtonClass: 'popup__save-button_invalid',
   inputErrorClass: 'popup__field_type_error',
   errorClass: 'popup__error_visible'
-});
+}
+
+
+const editValidator = new FormValidator(config, formEditElement);
+editValidator.enableValidation();
+
+const addValidator = new FormValidator(config, formAddElement);
+addValidator.enableValidation();
