@@ -9,7 +9,6 @@ const profileTitleElement = document.querySelector('.profile__title'),
   popupImageElement = document.querySelector('.popup_type_image'),
   popupEditOpenButtonElement = document.querySelector('.profile__edit-button'),
   popupAddOpenButtonElement = document.querySelector('.profile__add-button'),
-  popupSaveButtonElement = popupAddElement.querySelector('.popup__save-button'),
   formEditElement = document.querySelector('form[name="edit-form"]'),
   nameInput = formEditElement.querySelector('#nameInput'),
   jobInput = formEditElement.querySelector('#jobInput'),
@@ -61,9 +60,6 @@ const openEditPopup = function () {
 
 // открытие попапа добавления карточек
 const openAddPopup = function () {
-  // отключаем кнопку и накидываем класс инвалид
-  popupSaveButtonElement.setAttribute('disabled', '');
-  popupSaveButtonElement.classList.add('popup__save-button_invalid');
   openPopup(popupAddElement);
 }
 
@@ -89,11 +85,15 @@ function handleEditFormSubmit(evt) {
   closePopup(popupEditElement);
 }
 
+// функция создания карточки
+const createCard = (data, template) => {
+  const card = new Card(data, template, openImagePopup);
+  return card.generateCard();
+}
+
 // проходим по массиву и генерим стартовые карточки, вставляем их в контейнер
 initialCards.forEach(item => {
-  const card = new Card(item, cardTemplate, openImagePopup);
-  const cardElement = card.generateCard();
-  cardsContainer.append(cardElement);
+  cardsContainer.append(createCard(item, cardTemplate));
 })
 
 // создание новых карточек из формы
@@ -107,9 +107,7 @@ const handleAddFormSubmit = (e) => {
   }
 
   // генерим карточку и вставляем в контейнер
-  const card = new Card(data, cardTemplate, openImagePopup);
-  const cardElement = card.generateCard();
-  cardsContainer.prepend(cardElement);
+  cardsContainer.prepend(createCard(data, cardTemplate));
 
   // очищаем поля в форме
   e.target.reset()
