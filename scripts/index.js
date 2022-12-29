@@ -61,6 +61,7 @@ const openEditPopup = function () {
 // открытие попапа добавления карточек
 const openAddPopup = function () {
   openPopup(popupAddElement);
+  addValidator.toggleButtonValid();
 }
 
 // закрытие попапов

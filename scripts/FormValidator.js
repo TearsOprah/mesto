@@ -26,7 +26,7 @@ export default class FormValidator {
   }
 
   // отключение кнопки
-  _toggleButtonValid() {
+  toggleButtonValid() {
     const isFormValid = this._inputs.every((input) => input.validity.valid)
 
     if (isFormValid) {
@@ -41,13 +41,13 @@ export default class FormValidator {
   // устанавливаем слушатели
   _setEventListeners() {
     // чтоб при открытии попапа кнопка была не активна
-    this._toggleButtonValid()
+    this.toggleButtonValid()
 
     // валидация инпутов
     this._inputs.forEach((input) => {
       input.addEventListener('input', () => {
         this._checkInputValidity(input);
-        this._toggleButtonValid();
+        this.toggleButtonValid();
       })
     })
 
