@@ -12,13 +12,13 @@ import {
   config,
   formAddElement,
   formEditElement,
-  popupAddElement,
   popupAddOpenButtonElement,
-  popupEditElement,
   popupEditOpenButtonElement,
-  popupImageElement,
   profileSubtitleElement,
-  profileTitleElement
+  profileTitleElement,
+  popupImageElementSelector,
+  popupAddElementSelector,
+  popupEditElementSelector
 } from "./utils/constants.js";
 
 
@@ -30,6 +30,7 @@ const handleAddFormSubmit = (e, data) => {
     link: data.link })
 
   addPopup.close()
+  // отключаем кнопку добавить после создания новой карточки
   addValidator.disableSubmitButton()
 }
 
@@ -57,13 +58,13 @@ const userInfo = new UserInfo({name: profileTitleElement, job: profileSubtitleEl
 
 
 // cоздаем экземляры всех попапов и вешаем слушатель клика по кнопке закрытия
-const imagePopup = new PopupWithImage(popupImageElement);
+const imagePopup = new PopupWithImage(popupImageElementSelector);
 imagePopup.setEventListeners();
 
-const addPopup = new PopupWithForm(popupAddElement, handleAddFormSubmit)
+const addPopup = new PopupWithForm(popupAddElementSelector, handleAddFormSubmit)
 addPopup.setEventListeners()
 
-const editPopup = new PopupWithForm(popupEditElement, handleEditFormSubmit)
+const editPopup = new PopupWithForm(popupEditElementSelector, handleEditFormSubmit)
 editPopup.setEventListeners()
 
 

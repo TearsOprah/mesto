@@ -12,7 +12,10 @@ const
   jobInput = formEditElement.querySelector('#jobInput'),
   cardTemplate = document.querySelector('.card-template').content.querySelector('.element'),
   formAddElement = document.querySelector('form[name="add-form"]'),
-  cardsContainerSelector = '.elements__list';
+  cardsContainerSelector = '.elements__list',
+  popupImageElementSelector = '.popup_type_image',
+  popupAddElementSelector = '.popup_type_add',
+  popupEditElementSelector = '.popup_type_edit';
 
 const config = {
   formSelector: '.popup__form',
@@ -66,6 +69,9 @@ export {
   config,
   formEditElement,
   initialCards,
-  cardsContainerSelector
+  cardsContainerSelector,
+  popupImageElementSelector,
+  popupAddElementSelector,
+  popupEditElementSelector
 }
 

@@ -25,17 +25,20 @@ export default class FormValidator {
     }
   }
 
+
+  // включение кнопки
   _enableSubmitButton() {
     this._button.classList.remove(this._config.inactiveButtonClass);
     this._button.disabled = '';
   }
 
+  // отключение кнопки
   disableSubmitButton() {
     this._button.classList.add(this._config.inactiveButtonClass);
     this._button.disabled = 'disabled';
   }
 
-  // отключение кнопки
+  // отключение кнопки по условию
   toggleButtonValid() {
     const isFormValid = this._inputs.every((input) => input.validity.valid)
 
