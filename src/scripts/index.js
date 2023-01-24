@@ -1,3 +1,4 @@
+import './../pages/index.css';
 import Card from "./Card.js";
 import FormValidator from "./FormValidator.js";
 import Section from "./Section.js";
@@ -5,6 +6,7 @@ import PopupWithForm from "./PopupWithForm.js";
 import UserInfo from "./UserInfo.js";
 import PopupWithImage from "./PopupWithImage.js";
 import {
+  initialCards,
   cardsContainer,
   cardTemplate,
   config,
