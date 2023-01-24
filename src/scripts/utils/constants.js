@@ -11,9 +11,8 @@ const
   nameInput = formEditElement.querySelector('#nameInput'),
   jobInput = formEditElement.querySelector('#jobInput'),
   cardTemplate = document.querySelector('.card-template').content.querySelector('.element'),
-  cardsContainer = document.querySelector('.elements__list'),
-  formAddElement = document.querySelector('form[name="add-form"]');
-
+  formAddElement = document.querySelector('form[name="add-form"]'),
+  cardsContainerSelector = '.elements__list';
 
 const config = {
   formSelector: '.popup__form',
@@ -63,10 +62,10 @@ export {
   popupEditOpenButtonElement,
   popupAddOpenButtonElement,
   cardTemplate,
-  cardsContainer,
   formAddElement,
   config,
   formEditElement,
-  initialCards
+  initialCards,
+  cardsContainerSelector
 }
 

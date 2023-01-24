@@ -7,7 +7,7 @@ import UserInfo from "./UserInfo.js";
 import PopupWithImage from "./PopupWithImage.js";
 import {
   initialCards,
-  cardsContainer,
+  cardsContainerSelector,
   cardTemplate,
   config,
   formAddElement,
@@ -74,11 +74,12 @@ const createCard = (item) => {
   cardsList.addItem(cardElement);
 }
 
+
 // генерация стартовых карточек
 const cardsList = new Section({
   items: initialCards,
   renderer: createCard
-}, cardsContainer)
+}, cardsContainerSelector)
 
 // рендер всех карточек на странице
 cardsList.renderItems()
