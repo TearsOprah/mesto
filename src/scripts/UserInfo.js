@@ -6,12 +6,10 @@ export default class UserInfo {
 
   // возвращаем данные пользователя
   getUserInfo() {
-    const userInfo = {
+    return {
       name: this._name.textContent,
       job: this._job.textContent
-    }
-
-    return userInfo;
+    };
   }
 
   // устанавливаем новые данные пользователя
