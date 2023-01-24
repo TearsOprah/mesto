@@ -18,7 +18,9 @@ import {
   profileTitleElement,
   popupImageElementSelector,
   popupAddElementSelector,
-  popupEditElementSelector
+  popupEditElementSelector,
+  profileSubtitleElementSelector,
+  profileTitleElementSelector
 } from "./utils/constants.js";
 
 
@@ -54,7 +56,7 @@ addValidator.enableValidation();
 
 
 // создали эксемляр UserInfo
-const userInfo = new UserInfo({name: profileTitleElement, job: profileSubtitleElement})
+const userInfo = new UserInfo({nameSelector: profileTitleElementSelector, jobSelector: profileSubtitleElementSelector})
 
 
 // cоздаем экземляры всех попапов и вешаем слушатель клика по кнопке закрытия

@@ -1,7 +1,9 @@
 export default class UserInfo {
-  constructor({ name, job }) {
-    this._name = name;
-    this._job = job;
+  constructor({ nameSelector, jobSelector }) {
+    this._name = document.querySelector(nameSelector);
+    this._job = document.querySelector(jobSelector);
+    console.log(this._name)
+    console.log(this._job)
   }
 
   // возвращаем данные пользователя

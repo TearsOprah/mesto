@@ -15,7 +15,9 @@ const
   cardsContainerSelector = '.elements__list',
   popupImageElementSelector = '.popup_type_image',
   popupAddElementSelector = '.popup_type_add',
-  popupEditElementSelector = '.popup_type_edit';
+  popupEditElementSelector = '.popup_type_edit',
+  profileTitleElementSelector = '.profile__title',
+  profileSubtitleElementSelector = '.profile__subtitle';
 
 const config = {
   formSelector: '.popup__form',
@@ -72,6 +74,8 @@ export {
   cardsContainerSelector,
   popupImageElementSelector,
   popupAddElementSelector,
-  popupEditElementSelector
+  popupEditElementSelector,
+  profileTitleElementSelector,
+  profileSubtitleElementSelector
 }
 
