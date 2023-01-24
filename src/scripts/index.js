@@ -30,6 +30,7 @@ const handleAddFormSubmit = (e, data) => {
     link: data.link })
 
   addPopup.close()
+  addValidator.disableSubmitButton()
 }
 
 

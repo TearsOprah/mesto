@@ -25,16 +25,24 @@ export default class FormValidator {
     }
   }
 
+  _enableSubmitButton() {
+    this._button.classList.remove(this._config.inactiveButtonClass);
+    this._button.disabled = '';
+  }
+
+  disableSubmitButton() {
+    this._button.classList.add(this._config.inactiveButtonClass);
+    this._button.disabled = 'disabled';
+  }
+
   // отключение кнопки
   toggleButtonValid() {
     const isFormValid = this._inputs.every((input) => input.validity.valid)
 
     if (isFormValid) {
-      this._button.classList.remove(this._config.inactiveButtonClass);
-      this._button.disabled = '';
+      this._enableSubmitButton();
     } else {
-      this._button.classList.add(this._config.inactiveButtonClass);
-      this._button.disabled = 'disabled';
+      this.disableSubmitButton();
     }
   }
 
