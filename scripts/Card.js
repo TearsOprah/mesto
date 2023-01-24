@@ -1,11 +1,11 @@
 export default class Card {
 
-  constructor(data, template, openImagePopup) {
+  constructor(data, template, handleCardClick) {
 
     this._template = template;
     this._title = data.name;
     this._link = data.link;
-    this._openImagePopup = openImagePopup;
+    this._openImagePopup = handleCardClick;
 
     // получаем копию разметки карточки
     this._element = this._template.cloneNode(true);
