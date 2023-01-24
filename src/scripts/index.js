@@ -36,14 +36,13 @@ const handleAddFormSubmit = (e, data) => {
   addValidator.disableSubmitButton()
 }
 
+// создали эксемляр UserInfo
+const userInfo = new UserInfo({nameSelector: profileTitleElementSelector, jobSelector: profileSubtitleElementSelector})
 
 // редактирование имени и информации
 function handleEditFormSubmit(evt, data) {
   evt.preventDefault();
-
-  profileTitleElement.textContent = data.name;
-  profileSubtitleElement.textContent = data.job;
-
+  userInfo.setUserInfo(data)
   editPopup.close()
 }
 
@@ -53,10 +52,6 @@ const editValidator = new FormValidator(config, formEditElement);
 editValidator.enableValidation();
 const addValidator = new FormValidator(config, formAddElement);
 addValidator.enableValidation();
-
-
-// создали эксемляр UserInfo
-const userInfo = new UserInfo({nameSelector: profileTitleElementSelector, jobSelector: profileSubtitleElementSelector})
 
 
 // cоздаем экземляры всех попапов и вешаем слушатель клика по кнопке закрытия

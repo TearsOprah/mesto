@@ -16,7 +16,7 @@ export default class UserInfo {
 
   // устанавливаем новые данные пользователя
   setUserInfo(data) {
-    nameInput.value = data.name;
-    jobInput.value = data.job;
+    this._name.textContent = data.name;
+    this._job.textContent = data.job;
   }
 }
