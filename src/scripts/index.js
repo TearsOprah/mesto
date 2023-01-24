@@ -14,8 +14,6 @@ import {
   formEditElement,
   popupAddOpenButtonElement,
   popupEditOpenButtonElement,
-  profileSubtitleElement,
-  profileTitleElement,
   popupImageElementSelector,
   popupAddElementSelector,
   popupEditElementSelector,
@@ -27,10 +25,7 @@ import {
 // создание новых карточек из формы
 const handleAddFormSubmit = (e, data) => {
   e.preventDefault();
-  createCard({
-    name: data.cardName,
-    link: data.link })
-
+  createCard(data)
   addPopup.close()
   // отключаем кнопку добавить после создания новой карточки
   addValidator.disableSubmitButton()

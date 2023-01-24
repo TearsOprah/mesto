@@ -1,15 +1,8 @@
 // необходимые константы
 const
-  profileTitleElement = document.querySelector('.profile__title'),
-  profileSubtitleElement = document.querySelector('.profile__subtitle'),
-  popupEditElement = document.querySelector('.popup_type_edit'),
-  popupAddElement = document.querySelector('.popup_type_add'),
-  popupImageElement = document.querySelector('.popup_type_image'),
   popupEditOpenButtonElement = document.querySelector('.profile__edit-button'),
   popupAddOpenButtonElement = document.querySelector('.profile__add-button'),
   formEditElement = document.querySelector('form[name="edit-form"]'),
-  nameInput = formEditElement.querySelector('#nameInput'),
-  jobInput = formEditElement.querySelector('#jobInput'),
   cardTemplate = document.querySelector('.card-template').content.querySelector('.element'),
   formAddElement = document.querySelector('form[name="add-form"]'),
   cardsContainerSelector = '.elements__list',
@@ -57,13 +50,6 @@ const initialCards = [
 ];
 
 export {
-  nameInput,
-  jobInput,
-  profileTitleElement,
-  profileSubtitleElement,
-  popupEditElement,
-  popupAddElement,
-  popupImageElement,
   popupEditOpenButtonElement,
   popupAddOpenButtonElement,
   cardTemplate,
