@@ -9,6 +9,8 @@ const
   popupImageElementSelector = '.popup_type_image',
   popupAddElementSelector = '.popup_type_add',
   popupEditElementSelector = '.popup_type_edit',
+  nameInput = document.querySelector('#nameInput'),
+  jobInput = document.querySelector('#jobInput'),
   profileTitleElementSelector = '.profile__title',
   profileSubtitleElementSelector = '.profile__subtitle';
 
@@ -62,6 +64,8 @@ export {
   popupAddElementSelector,
   popupEditElementSelector,
   profileTitleElementSelector,
-  profileSubtitleElementSelector
+  profileSubtitleElementSelector,
+  nameInput,
+  jobInput
 }
 

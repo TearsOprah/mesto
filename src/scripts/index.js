@@ -18,7 +18,9 @@ import {
   popupAddElementSelector,
   popupEditElementSelector,
   profileSubtitleElementSelector,
-  profileTitleElementSelector
+  profileTitleElementSelector,
+  nameInput,
+  jobInput
 } from "./utils/constants.js";
 
 
@@ -31,8 +33,19 @@ const handleAddFormSubmit = (e, data) => {
   addValidator.disableSubmitButton()
 }
 
+
 // создали эксемляр UserInfo
 const userInfo = new UserInfo({nameSelector: profileTitleElementSelector, jobSelector: profileSubtitleElementSelector})
+
+
+// заполнение инпутов формы редактированя профиля
+function fillProfileForm({ name, job }) {
+  console.log(nameInput)
+  console.log(jobInput)
+  nameInput.value = name;
+  jobInput.value = job;
+}
+
 
 // редактирование имени и информации
 function handleEditFormSubmit(evt, data) {
@@ -83,6 +96,6 @@ popupAddOpenButtonElement.addEventListener('click',  () => addPopup.open());
 popupEditOpenButtonElement.addEventListener('click', () => {
   // перед открытием получаем данные пользователя
   const info = userInfo.getUserInfo()
-  // вставляем данные в инпуты
-  userInfo.setUserInfo(info)
+  // вставляем данные name и job в инпуты
+  fillProfileForm(info)
   editPopup.open()});
