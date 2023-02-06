@@ -24,6 +24,7 @@ import {
   jobInput,
   profileAvatarElementSelector
 } from "../utils/constants.js";
+import {data} from "autoprefixer";
 
 
 // api
@@ -55,6 +56,7 @@ api.getUserData()
   .then(data => {
     userInfo.setUserInfo(data)
   })
+
 
 // заполнение инпутов формы редактированя профиля
 function fillProfileForm({ name, job }) {
@@ -97,11 +99,22 @@ const createCard = (item) => {
 }
 
 
+// загрузка стартовых карточек с сервера
+api.getInitialCards()
+  .then(data => {
+    // получаем массив, и для каждого элемента массива(объекта) создаем карточку
+    data.forEach(item => {
+      createCard(item)
+    })
+  })
+
+
 // генерация стартовых карточек
 const cardsList = new Section({
-  items: initialCards,
+  items: [],
   renderer: createCard
 }, cardsContainerSelector)
+
 
 // рендер всех карточек на странице
 cardsList.renderItems()

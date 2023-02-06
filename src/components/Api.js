@@ -12,11 +12,24 @@ export default class Api {
       // получили ответ, если все ок - создаем объект иначе пропускаем все then и попадаем в catch
       .then((res) => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
       .then((data) => {
-        console.log(data)
-        return data})
+        return data
+      })
       .catch((err) => {
         console.log(err)
-      } )
+      })
+  }
+
+  getInitialCards() {
+    return fetch('https://mesto.nomoreparties.co/v1/cohort-59/cards', {
+      headers: this._headers
+    })
+      .then((res) => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
+      .then((data) => {
+        return data
+      })
+      .catch((err) => {
+        console.log(err)
+      })
   }
 }
 
