@@ -5,7 +5,7 @@ import Section from "../components/Section.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import UserInfo from "../components/UserInfo.js";
 import PopupWithImage from "../components/PopupWithImage.js";
-import all from "../components/Api.js";
+import Api from "../components/Api.js"
 import {
   initialCards,
   cardsContainerSelector,
@@ -21,8 +21,19 @@ import {
   profileSubtitleElementSelector,
   profileTitleElementSelector,
   nameInput,
-  jobInput
+  jobInput,
+  profileAvatarElementSelector
 } from "../utils/constants.js";
+
+
+// api
+const api = new Api({
+  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-59',
+  headers: {
+    authorization: '9d89c91e-8283-405d-99c3-5ef7c632611e',
+    'Content-Type': 'application/json'
+  }
+});
 
 
 // создание новых карточек из формы
@@ -36,13 +47,17 @@ const handleAddFormSubmit = (e, data) => {
 
 
 // создали эксемляр UserInfo
-const userInfo = new UserInfo({nameSelector: profileTitleElementSelector, jobSelector: profileSubtitleElementSelector})
+const userInfo = new UserInfo({nameSelector: profileTitleElementSelector, jobSelector: profileSubtitleElementSelector, avatarSelector: profileAvatarElementSelector})
 
+
+// получаем данные пользователя с сервера и вставляем в верстку
+api.getUserData()
+  .then(data => {
+    userInfo.setUserInfo(data)
+  })
 
 // заполнение инпутов формы редактированя профиля
 function fillProfileForm({ name, job }) {
-  console.log(nameInput)
-  console.log(jobInput)
   nameInput.value = name;
   jobInput.value = job;
 }
@@ -51,7 +66,7 @@ function fillProfileForm({ name, job }) {
 // редактирование имени и информации
 function handleEditFormSubmit(evt, data) {
   evt.preventDefault();
-  userInfo.setUserInfo(data)
+  userInfo.setNewUserInfo(data)
   editPopup.close()
 }
 

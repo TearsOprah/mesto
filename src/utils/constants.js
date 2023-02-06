@@ -12,7 +12,8 @@ const
   nameInput = document.querySelector('#nameInput'),
   jobInput = document.querySelector('#jobInput'),
   profileTitleElementSelector = '.profile__title',
-  profileSubtitleElementSelector = '.profile__subtitle';
+  profileSubtitleElementSelector = '.profile__subtitle',
+  profileAvatarElementSelector = '.profile__avatar';
 
 const config = {
   formSelector: '.popup__form',
@@ -66,6 +67,7 @@ export {
   profileTitleElementSelector,
   profileSubtitleElementSelector,
   nameInput,
-  jobInput
+  jobInput,
+  profileAvatarElementSelector
 }
 
