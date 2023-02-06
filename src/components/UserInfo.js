@@ -19,10 +19,4 @@ export default class UserInfo {
       job: this._job.textContent
     };
   }
-
-  // устанавливаем новые данные пользователя
-  setNewUserInfo(data) {
-    this._name.textContent = data.name;
-    this._job.textContent = data.job;
-  }
 }

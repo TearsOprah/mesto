@@ -68,7 +68,12 @@ function fillProfileForm({ name, job }) {
 // редактирование имени и информации
 function handleEditFormSubmit(evt, data) {
   evt.preventDefault();
-  userInfo.setNewUserInfo(data)
+
+  api.setUserData(data)
+    .then(res => {
+      userInfo.setUserInfo(res);
+    })
+
   editPopup.close()
 }
 
