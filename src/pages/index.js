@@ -40,7 +40,12 @@ const api = new Api({
 // создание новых карточек из формы
 const handleAddFormSubmit = (e, data) => {
   e.preventDefault();
-  createCard(data)
+
+  api.addNewCard(data)
+    .then(data => {
+      createCard(data)
+    })
+
   addPopup.close()
   // отключаем кнопку добавить после создания новой карточки
   addValidator.disableSubmitButton()

@@ -45,6 +45,21 @@ export default class Api {
       .catch((err) => {
         console.log(err)
       })}
+
+  addNewCard({name, link}) {
+    return fetch('https://mesto.nomoreparties.co/v1/cohort-59/cards', {
+      method: 'POST',
+      headers: this._headers,
+      body: JSON.stringify({
+        name,
+        link
+      })
+    })
+      .then((res) => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
+      .catch((err) => {
+        console.log(err)
+      })
+  }
 }
 
 //Токен: 9d89c91e-8283-405d-99c3-5ef7c632611e
