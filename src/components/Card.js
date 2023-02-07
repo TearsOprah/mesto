@@ -1,15 +1,19 @@
 export default class Card {
 
-  constructor(data, template, handleCardClick) {
+  constructor({ likes, _id, name, link, owner, createdAt }, template, handleCardClick) {
 
     this._template = template;
-    this._title = data.name;
-    this._link = data.link;
+    this._title = name;
+    this._link = link;
     this._openImagePopup = handleCardClick;
+    this._likes = likes;
+
+    console.log(this._element)
 
     // получаем копию разметки карточки
     this._element = this._template.cloneNode(true);
   }
+
 
   // удаление
   _deleteCard() {
@@ -42,6 +46,7 @@ export default class Card {
     this._element.querySelector('.element__title').textContent = this._title;
     this._element.querySelector('.element__image').setAttribute('alt', this._title);
     this._element.querySelector('.element__image').setAttribute('src', this._link);
+    this._element.querySelector('.element__likes').textContent = this._likes.length;
 
     this._setEventListeners()
 
