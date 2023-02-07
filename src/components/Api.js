@@ -60,6 +60,17 @@ export default class Api {
         console.log(err)
       })
   }
+
+  deleteCard(cardId) {
+    return fetch('https://mesto.nomoreparties.co/v1/cohort-59/cards/' + cardId, {
+      method: 'DELETE',
+      headers: this._headers
+    })
+      .then((res) => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
+      .catch((err) => {
+        console.log(err)
+      })
+  }
 }
 
 //Токен: 9d89c91e-8283-405d-99c3-5ef7c632611e

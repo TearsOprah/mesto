@@ -68,14 +68,24 @@
     </div>
   </div>
 
+  <div class="popup popup_type_delete">
+    <div class="popup__container">
+      <form class="popup__form" name="delete-form" novalidate>
+        <h2 class="popup__title">Вы уверены?</h2>
+        <input class="popup__save-button" type="submit" name="delete" value="Да">
+      </form>
+      <button class="popup__closer hovered-link popup__closer_type_delete" type="button" aria-label="Закрыть"></button>
+    </div>
+  </div>
+
   <div class="popup popup_type_image">
     <div class="popup__image-container">
       <img class="popup__image" src="images/element-card-1.jpeg" alt="">
       <p class="popup__description">Description</p>
       <button class="popup__closer hovered-link popup__closer_type_image" type="button" aria-label="Закрыть"></button>
     </div>
-
   </div>
+
   <template class="card-template">
     <li class="element">
       <img class="element__image" src="#" alt="">

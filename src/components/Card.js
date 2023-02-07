@@ -1,14 +1,21 @@
 export default class Card {
 
-  constructor({ likes, _id, name, link, owner, createdAt }, template, handleCardClick) {
+  constructor({ likes, _id, name, link, owner, createdAt },
+              template,
+              handleCardClick,
+              handleDeleteCard,
+              userId) {
 
     this._template = template;
     this._title = name;
     this._link = link;
     this._openImagePopup = handleCardClick;
+    this._openDeletePopup = handleDeleteCard;
     this._likes = likes;
+    this._userId = userId;
+    this._owner = owner;
+    this._id = _id;
 
-    console.log(this._element)
 
     // получаем копию разметки карточки
     this._element = this._template.cloneNode(true);
@@ -16,8 +23,15 @@ export default class Card {
 
 
   // удаление
-  _deleteCard() {
+  deleteCard () {
     this._element.remove();
+  }
+
+
+  // попап удаления
+  _handleDelete() {
+    // this._element.remove();
+    this._openDeletePopup(this._id)
   }
 
   // лайк
@@ -32,9 +46,13 @@ export default class Card {
       this._toggleLike();
     });
 
-    this._element.querySelector('.element__delete').addEventListener('click', () => {
-      this._deleteCard()
-    })
+
+    if (this._element.querySelector('.element__delete')) {
+      this._element.querySelector('.element__delete').addEventListener('click', () => {
+        this._handleDelete()
+      })
+    }
+
 
     this._element.querySelector('.element__image').addEventListener('click', this._openImagePopup);
   }
@@ -47,6 +65,10 @@ export default class Card {
     this._element.querySelector('.element__image').setAttribute('alt', this._title);
     this._element.querySelector('.element__image').setAttribute('src', this._link);
     this._element.querySelector('.element__likes').textContent = this._likes.length;
+
+    if (this._owner._id !== this._userId) {
+      this._element.querySelector('.element__delete').remove()
+    }
 
     this._setEventListeners()
 

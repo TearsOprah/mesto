@@ -5,6 +5,7 @@ import Section from "../components/Section.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import UserInfo from "../components/UserInfo.js";
 import PopupWithImage from "../components/PopupWithImage.js";
+import PopupWithConfirm from "../components/PopupWithConfirm.js";
 import Api from "../components/Api.js"
 import {
   initialCards,
@@ -22,7 +23,8 @@ import {
   profileTitleElementSelector,
   nameInput,
   jobInput,
-  profileAvatarElementSelector
+  profileAvatarElementSelector,
+  popupDeleteElementSelector
 } from "../utils/constants.js";
 import {data} from "autoprefixer";
 
@@ -83,6 +85,12 @@ function handleEditFormSubmit(evt, data) {
 }
 
 
+function handleDeleteCard(cardId) {
+  deletePopup.setTargetElement(cardId);
+  deletePopup.open()
+}
+
+
 // валидация форм
 const editValidator = new FormValidator(config, formEditElement);
 editValidator.enableValidation();
@@ -95,15 +103,28 @@ const imagePopup = new PopupWithImage(popupImageElementSelector);
 imagePopup.setEventListeners();
 
 const addPopup = new PopupWithForm(popupAddElementSelector, handleAddFormSubmit)
-addPopup.setEventListeners()
+addPopup.setEventListeners();
 
 const editPopup = new PopupWithForm(popupEditElementSelector, handleEditFormSubmit)
-editPopup.setEventListeners()
+editPopup.setEventListeners();
+
+
+const deletePopup = new PopupWithConfirm(popupDeleteElementSelector, (ev, cardElement) => {
+  ev.preventDefault();
+
+  // api.deleteCard(cardId)
+  //   .then(() => {
+  //   })
+
+  cardElement.remove();
+  deletePopup.close();
+})
+deletePopup.setEventListeners();
 
 
 // функция создания карточки
 const createCard = (item) => {
-  const card = new Card(item, cardTemplate, () => imagePopup.open(item.name, item.link));
+  const card = new Card(item, cardTemplate, () => imagePopup.open(item.name, item.link), handleDeleteCard, userInfo.id);
   const cardElement = card.generateCard();
   cardsList.addItem(cardElement);
 }

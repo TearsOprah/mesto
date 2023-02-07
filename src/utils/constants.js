@@ -13,7 +13,8 @@ const
   jobInput = document.querySelector('#jobInput'),
   profileTitleElementSelector = '.profile__title',
   profileSubtitleElementSelector = '.profile__subtitle',
-  profileAvatarElementSelector = '.profile__avatar';
+  profileAvatarElementSelector = '.profile__avatar',
+  popupDeleteElementSelector = '.popup_type_delete';
 
 const config = {
   formSelector: '.popup__form',
@@ -68,6 +69,7 @@ export {
   profileSubtitleElementSelector,
   nameInput,
   jobInput,
-  profileAvatarElementSelector
+  profileAvatarElementSelector,
+  popupDeleteElementSelector
 }
 
