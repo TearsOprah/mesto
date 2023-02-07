@@ -86,7 +86,8 @@ function handleEditFormSubmit(evt, data) {
 
 
 function handleDeleteCard(cardId) {
-  deletePopup.setTargetElement(cardId);
+  // console.log(cardId)
+  deletePopup.setElementId(cardId);
   deletePopup.open()
 }
 
@@ -109,22 +110,32 @@ const editPopup = new PopupWithForm(popupEditElementSelector, handleEditFormSubm
 editPopup.setEventListeners();
 
 
-const deletePopup = new PopupWithConfirm(popupDeleteElementSelector, (ev, cardElement) => {
-  ev.preventDefault();
+const deletePopup = new PopupWithConfirm(popupDeleteElementSelector, (ev, cardId) => {
 
-  // api.deleteCard(cardId)
-  //   .then(() => {
-  //   })
+  ev.preventDefault()
 
-  cardElement.remove();
-  deletePopup.close();
+  // console.log(ev.target.closest('.element'))
+  console.log(cardId)
+
+
+
+  api.deleteCard(cardId)
+    .then(() => {
+      document.getElementById(cardId).remove()
+      deletePopup.close()
+    })
+
+  // cardElement.remove();
+  // deletePopup.close();
 })
 deletePopup.setEventListeners();
 
 
 // функция создания карточки
 const createCard = (item) => {
-  const card = new Card(item, cardTemplate, () => imagePopup.open(item.name, item.link), handleDeleteCard, userInfo.id);
+  const card = new Card(item, cardTemplate, () => imagePopup.open(item.name, item.link),
+    handleDeleteCard,
+    userInfo.id);
   const cardElement = card.generateCard();
   cardsList.addItem(cardElement);
 }

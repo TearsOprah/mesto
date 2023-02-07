@@ -65,6 +65,7 @@ export default class Card {
     this._element.querySelector('.element__image').setAttribute('alt', this._title);
     this._element.querySelector('.element__image').setAttribute('src', this._link);
     this._element.querySelector('.element__likes').textContent = this._likes.length;
+    this._element.setAttribute('id', this._id);
 
     if (this._owner._id !== this._userId) {
       this._element.querySelector('.element__delete').remove()
