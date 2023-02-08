@@ -71,7 +71,31 @@ export default class Api {
         console.log(err)
       })
   }
+
+  setLike(cardId) {
+    return fetch('https://mesto.nomoreparties.co/v1/cohort-59/cards/' + cardId + '/likes', {
+      method: 'PUT',
+      headers: this._headers
+    })
+      .then((res) => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
+      .catch((err) => {
+        console.log(err)
+      })
+  }
+
+  deleteLike(cardId) {
+    return fetch('https://mesto.nomoreparties.co/v1/cohort-59/cards/' + cardId + '/likes', {
+      method: 'DELETE',
+      headers: this._headers
+    })
+      .then((res) => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
+      .catch((err) => {
+        console.log(err)
+      })
+  }
 }
+
+
 
 //Токен: 9d89c91e-8283-405d-99c3-5ef7c632611e
 //Идентификатор группы: cohort-59"
