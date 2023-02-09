@@ -92,6 +92,10 @@ function handleDeleteCard(cardId) {
 }
 
 
+// лайки
+
+
+
 // валидация форм
 const editValidator = new FormValidator(config, formEditElement);
 editValidator.enableValidation();
@@ -133,9 +137,33 @@ deletePopup.setEventListeners();
 
 // функция создания карточки
 const createCard = (item) => {
-  const card = new Card(item, cardTemplate, () => imagePopup.open(item.name, item.link),
+  const card = new Card({
+    data: item,
+    template: cardTemplate,
+    handleCardClick: () => imagePopup.open(item.name, item.link),
     handleDeleteCard,
-    userInfo.id);
+
+    handleSetLike: (cardId) => {
+      api.setLike(cardId)
+        .then((item) => {
+          console.log(item)
+          console.log(cardId)
+          card.handleLikeCard(item)
+        })
+  },
+
+    handleDeleteLike: (cardId) => {
+      api.deleteLike(cardId)
+        .then((item) => {
+          // console.log('данные карточки:')
+          // console.log(item)
+          console.log('id этой карточки: ' + cardId)
+          card.handleLikeCard(item)
+        })
+    },
+
+    userId: userInfo.id});
+
   const cardElement = card.generateCard();
   cardsList.addItem(cardElement);
 }
