@@ -17,7 +17,7 @@ export default class Card {
     this._userId = userId;
     this._owner = data.owner;
     this._cardId = data._id;
-    this._handleSetLike = handleDeleteLike;
+    this._handleSetLike = handleSetLike;
     this._handleDeleteLike = handleDeleteLike;
 
 
