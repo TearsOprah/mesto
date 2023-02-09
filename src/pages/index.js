@@ -26,7 +26,8 @@ import {
   profileAvatarElementSelector,
   popupDeleteElementSelector,
   popupAvatarElementSelector,
-  popupAvatarOpenButtonElement
+  popupAvatarOpenButtonElement,
+  formAvatarElement
 } from "../utils/constants.js";
 import {data} from "autoprefixer";
 
@@ -115,6 +116,8 @@ const editValidator = new FormValidator(config, formEditElement);
 editValidator.enableValidation();
 const addValidator = new FormValidator(config, formAddElement);
 addValidator.enableValidation();
+const avatarValidator = new FormValidator(config, formAvatarElement);
+avatarValidator.enableValidation();
 
 
 // cоздаем экземляры всех попапов и вешаем слушатель клика по кнопке закрытия

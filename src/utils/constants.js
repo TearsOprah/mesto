@@ -5,6 +5,7 @@ const
   formEditElement = document.querySelector('form[name="edit-form"]'),
   cardTemplate = document.querySelector('.card-template').content.querySelector('.element'),
   formAddElement = document.querySelector('form[name="add-form"]'),
+  formAvatarElement = document.querySelector('form[name="avatar-form"]'),
   cardsContainerSelector = '.elements__list',
   popupImageElementSelector = '.popup_type_image',
   popupAddElementSelector = '.popup_type_add',
@@ -74,6 +75,7 @@ export {
   profileAvatarElementSelector,
   popupDeleteElementSelector,
   popupAvatarElementSelector,
-  popupAvatarOpenButtonElement
+  popupAvatarOpenButtonElement,
+  formAvatarElement
 }
 
