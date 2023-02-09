@@ -34,6 +34,9 @@
 .popup__image-container{margin:0;max-width:75vw;padding:0;position:relative}
 .popup__error{color:red;font-size:12px;font-weight:400;left:0;line-height:14px;margin:0;min-height:25px;padding:0;position:absolute;text-align:left;top:35px;visibility:hidden}
 .popup__field-container{display:flex;flex-direction:column;margin:0;padding:0;position:relative}
+.element__likes{color:#000;font-size:13px;font-style:normal;font-weight:400;line-height:16px;margin:0;padding:0;text-align:center}
+.profile__avatar-edit{height:120px;margin:0;padding:0;position:relative;width:120px}
+.profile__avatar-button{background-color:transparent;background-position:50%;background-repeat:no-repeat;background-size:26px;border:0;border-radius:50%;cursor:pointer;height:120px;left:0;margin:0;padding:0;position:absolute;top:0;transition:.3s;width:120px}.profile__avatar-button:hover{background-color:rgba(0,0,0,.8);background-image:url(images/profile-edit.8667ac4a523e8fc42e59.svg)}
 .popup_opened{opacity:1;transition:visibility .5s,opacity .5s linear;visibility:visible}
 .element__like_active{background-image:url(images/element-like-active.fe17a515669479b1e649.svg)}
 .popup_type_image{background-color:rgba(0,0,0,.9)}
