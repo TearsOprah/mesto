@@ -14,7 +14,9 @@ const
   profileTitleElementSelector = '.profile__title',
   profileSubtitleElementSelector = '.profile__subtitle',
   profileAvatarElementSelector = '.profile__avatar',
-  popupDeleteElementSelector = '.popup_type_delete';
+  popupDeleteElementSelector = '.popup_type_delete',
+  popupAvatarElementSelector = '.popup_type_avatar',
+  popupAvatarOpenButtonElement = document.querySelector('.profile__avatar-button')
 
 const config = {
   formSelector: '.popup__form',
@@ -70,6 +72,8 @@ export {
   nameInput,
   jobInput,
   profileAvatarElementSelector,
-  popupDeleteElementSelector
+  popupDeleteElementSelector,
+  popupAvatarElementSelector,
+  popupAvatarOpenButtonElement
 }
 

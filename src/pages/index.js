@@ -24,7 +24,9 @@ import {
   nameInput,
   jobInput,
   profileAvatarElementSelector,
-  popupDeleteElementSelector
+  popupDeleteElementSelector,
+  popupAvatarElementSelector,
+  popupAvatarOpenButtonElement
 } from "../utils/constants.js";
 import {data} from "autoprefixer";
 
@@ -92,7 +94,19 @@ function handleDeleteCard(cardId) {
 }
 
 
-// лайки
+function handleAvatarFormSubmit(ev, data) {
+
+  // отменяем перезагрузку страницы
+  ev.preventDefault();
+  // отправляем запрос
+  api.updateAvatar(data)
+    .then(res => {
+    })
+  // подменяем картинку на картинку из ответа
+  document.querySelector(profileAvatarElementSelector).src = data.avatar
+  //закрываем попап
+  avatarPopup.close()
+}
 
 
 
@@ -112,6 +126,9 @@ addPopup.setEventListeners();
 
 const editPopup = new PopupWithForm(popupEditElementSelector, handleEditFormSubmit)
 editPopup.setEventListeners();
+
+const avatarPopup = new PopupWithForm(popupAvatarElementSelector, handleAvatarFormSubmit)
+avatarPopup.setEventListeners();
 
 
 const deletePopup = new PopupWithConfirm(popupDeleteElementSelector, (ev, cardId) => {
@@ -191,6 +208,7 @@ cardsList.renderItems()
 
 
 // слушатели на кнопки добавления и редактирования
+popupAvatarOpenButtonElement.addEventListener('click', () => avatarPopup.open())
 popupAddOpenButtonElement.addEventListener('click',  () => addPopup.open());
 popupEditOpenButtonElement.addEventListener('click', () => {
   // перед открытием получаем данные пользователя
