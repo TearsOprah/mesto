@@ -13,7 +13,10 @@
   <main class="content">
     <section class="profile">
       <div class="profile__block">
-        <img class="profile__avatar" src="<%=require('./images/profile-avatar.jpeg')%>" alt="аватар">
+        <div class="profile__avatar-edit">
+          <img class="profile__avatar" src="<%=require('./images/profile-avatar.jpeg')%>" alt="аватар">
+          <button class="profile__avatar-button" type="button" aria-label="Обновить аватар"></button>
+        </div>
         <div class="profile__info">
           <h1 class="profile__title"></h1>
           <button class="profile__edit-button hovered-link" type="button" aria-label="Редактировать"></button>
