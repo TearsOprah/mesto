@@ -26,22 +26,11 @@ export default class Card {
   }
 
 
-  // удаление
-  deleteCard () {
-    this._element.remove();
-  }
-
-
   // попап удаления
   _handleDelete() {
-    // this._element.remove();
     this._openDeletePopup(this._cardId)
   }
 
-  // лайк
-  _toggleLike() {
-    this._element.querySelector('.element__like').classList.toggle('element__like_active');
-  }
 
   // слушатели
   _setEventListeners() {
@@ -53,14 +42,10 @@ export default class Card {
       if (this._likeBtn.classList.contains('element__like_active')) {
         this._handleDeleteLike(this._cardId);
       } else {
-        console.log('отправляю запрос на лайк')
         this._handleSetLike(this._cardId);
       }
     })
 
-    // this._element.querySelector('.element__like').addEventListener('click', () => {
-    //   this._toggleLike();
-    // });
 
     // слушатель кнопки удаления карточки
     if (this._element.querySelector('.element__delete')) {
@@ -107,12 +92,8 @@ export default class Card {
   }
 
 
-  // не раб
   // обновление лайков
   handleLikeCard(data) {
-    console.log('список пользователей ниже:')
-    console.log(data.likes);
-
     this._likes = data.likes;
     this._element.querySelector('.element__likes').textContent = this._likes.length;
     this._likeBtn.classList.toggle('element__like_active')

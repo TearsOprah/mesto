@@ -8,7 +8,6 @@ import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithConfirm from "../components/PopupWithConfirm.js";
 import Api from "../components/Api.js"
 import {
-  initialCards,
   cardsContainerSelector,
   cardTemplate,
   config,
@@ -29,7 +28,7 @@ import {
   popupAvatarOpenButtonElement,
   formAvatarElement
 } from "../utils/constants.js";
-import {data} from "autoprefixer";
+
 
 
 // api
@@ -107,8 +106,7 @@ function handleAvatarFormSubmit(ev, data) {
   ev.preventDefault();
   // отправляем запрос
   api.updateAvatar(data)
-    .then(res => {
-    })
+    .then()
     .finally(() => {
       renderLoading(formAvatarElement.querySelector('.popup__save-button'),false)
     })
@@ -157,19 +155,13 @@ const deletePopup = new PopupWithConfirm(popupDeleteElementSelector, (ev, cardId
 
   ev.preventDefault()
 
-  // console.log(ev.target.closest('.element'))
-  console.log(cardId)
-
-
-
   api.deleteCard(cardId)
     .then(() => {
       document.getElementById(cardId).remove()
       deletePopup.close()
     })
 
-  // cardElement.remove();
-  // deletePopup.close();
+
 })
 deletePopup.setEventListeners();
 
