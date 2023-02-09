@@ -44,11 +44,14 @@ const api = new Api({
 
 // создание новых карточек из формы
 const handleAddFormSubmit = (e, data) => {
+  renderLoading(formAddElement.querySelector('.popup__save-button') ,true)
   e.preventDefault();
-
   api.addNewCard(data)
     .then(data => {
       createCard(data)
+    })
+    .finally(() => {
+      renderLoading(formAddElement.querySelector('.popup__save-button') ,false)
     })
 
   addPopup.close()
@@ -77,11 +80,14 @@ function fillProfileForm({ name, job }) {
 
 // редактирование имени и информации
 function handleEditFormSubmit(evt, data) {
+  renderLoading(formEditElement.querySelector('.popup__save-button') ,true)
   evt.preventDefault();
-
   api.setUserData(data)
     .then(res => {
       userInfo.setUserInfo(res);
+    })
+    .finally(() => {
+      renderLoading(formEditElement.querySelector('.popup__save-button') ,false)
     })
 
   editPopup.close()
@@ -96,12 +102,15 @@ function handleDeleteCard(cardId) {
 
 
 function handleAvatarFormSubmit(ev, data) {
-
+  renderLoading(formAvatarElement.querySelector('.popup__save-button') ,true)
   // отменяем перезагрузку страницы
   ev.preventDefault();
   // отправляем запрос
   api.updateAvatar(data)
     .then(res => {
+    })
+    .finally(() => {
+      renderLoading(formAvatarElement.querySelector('.popup__save-button'),false)
     })
   // подменяем картинку на картинку из ответа
   document.querySelector(profileAvatarElementSelector).src = data.avatar
@@ -109,6 +118,16 @@ function handleAvatarFormSubmit(ev, data) {
   avatarPopup.close()
 }
 
+
+// подмена текста во время ожидания ответа сервера
+function renderLoading(element, isLoading) {
+
+  if (isLoading) {
+    element.value = 'Сохранение...';
+  } else {
+    element.value = 'Сохранить';
+  }
+}
 
 
 // валидация форм
