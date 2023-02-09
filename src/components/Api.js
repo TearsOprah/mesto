@@ -93,6 +93,20 @@ export default class Api {
         console.log(err)
       })
   }
+
+  updateAvatar({ avatar }) {
+    return fetch('https://mesto.nomoreparties.co/v1/cohort-59/users/me/avatar', {
+      method: 'PATCH',
+      headers: this._headers,
+      body: JSON.stringify({
+        avatar
+      })
+    })
+      .then((res) => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
+      .catch((err) => {
+        console.log(err)
+      })
+  }
 }
 
 
