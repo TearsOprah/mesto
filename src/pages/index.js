@@ -41,6 +41,21 @@ const api = new Api({
 });
 
 
+// загрузка карточек и данных пользователя с сервера
+Promise.all([api.getInitialCards(), api.getUserData()])
+  .then(([initialCards, userData]) => {
+    // получаем массив, и для каждого элемента массива(объекта) создаем карточку
+    initialCards.reverse().forEach(item => {
+      createCard(item)
+    })
+    // получаем данные пользователя с сервера и вставляем в верстку
+    userInfo.setUserInfo(userData)
+  })
+  .catch(err => {
+    console.log(err)
+  })
+
+
 // создание новых карточек из формы
 const handleAddFormSubmit = (e, data) => {
   renderLoading(formAddElement.querySelector('.popup__save-button') ,true)
@@ -64,16 +79,6 @@ const handleAddFormSubmit = (e, data) => {
 
 // создали эксемляр UserInfo
 const userInfo = new UserInfo({nameSelector: profileTitleElementSelector, jobSelector: profileSubtitleElementSelector, avatarSelector: profileAvatarElementSelector})
-
-
-// получаем данные пользователя с сервера и вставляем в верстку
-api.getUserData()
-  .then(data => {
-    userInfo.setUserInfo(data)
-  })
-  .catch((err) => {
-    console.log(err)
-  })
 
 
 // заполнение инпутов формы редактированя профиля
@@ -101,13 +106,6 @@ function handleEditFormSubmit(evt, data) {
 }
 
 
-// function handleDeleteCard(cardId, card) {
-//   // console.log(cardId)
-//   deletePopup.setElementId(cardId);
-//   deletePopup.open()
-// }
-
-
 function handleAvatarFormSubmit(ev, data) {
   renderLoading(formAvatarElement.querySelector('.popup__save-button') ,true)
   // отменяем перезагрузку страницы
@@ -115,9 +113,8 @@ function handleAvatarFormSubmit(ev, data) {
   // отправляем запрос
   api.updateAvatar(data)
     .then(() => {
-      // подменяем картинку на картинку из ответа
-      // обновляем данные
-      userInfo.setUserInfo(data)
+      // обновляем avatar
+      userInfo.setAvatar(data)
       //закрываем попап
       avatarPopup.close();
     })
@@ -220,19 +217,6 @@ const createCard = (item) => {
 }
 
 
-// загрузка стартовых карточек с сервера
-api.getInitialCards()
-  .then(data => {
-    // получаем массив, и для каждого элемента массива(объекта) создаем карточку
-    data.reverse().forEach(item => {
-      createCard(item)
-    })
-  })
-  .catch((err) => {
-    console.log(err)
-  })
-
-
 // генерация стартовых карточек
 const cardsList = new Section({
   items: [],
@@ -245,7 +229,9 @@ cardsList.renderItems()
 
 
 // слушатели на кнопки добавления и редактирования
-popupAvatarOpenButtonElement.addEventListener('click', () => avatarPopup.open())
+popupAvatarOpenButtonElement.addEventListener('click', () => {
+  avatarPopup.open();
+})
 popupAddOpenButtonElement.addEventListener('click',  () => addPopup.open());
 popupEditOpenButtonElement.addEventListener('click', () => {
   // перед открытием получаем данные пользователя

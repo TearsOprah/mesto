@@ -6,12 +6,16 @@ export default class UserInfo {
   }
 
   // вставляем данные в верстку
-  setUserInfo({name, about, avatar, cohort, _id}) {
+  setUserInfo({name, about, cohort, avatar, _id}) {
     this._name.textContent = name;
     this._job.textContent = about;
     this._avatar.src = avatar;
     this._cohort = cohort;
     this.id = _id;
+  }
+
+  setAvatar({avatar}) {
+    this._avatar.src = avatar;
   }
 
   // возвращаем данные пользователя
