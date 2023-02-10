@@ -4,13 +4,20 @@ export default class Api {
     this._headers = options.headers;
   }
 
+  // получили ответ, если все ок - создаем объект иначе пропускаем все then и попадаем в catch
+  _getResponseData(res) {
+    if (!res.ok) {
+      return Promise.reject(`Ошибка: ${res.status}`);
+    }
+    return res.json();
+  }
+
   // Загрузка информации о пользователе с сервера
   getUserData() {
     return fetch('https://nomoreparties.co/v1/cohort-59/users/me', {
     headers: this._headers
     })
-      // получили ответ, если все ок - создаем объект иначе пропускаем все then и попадаем в catch
-      .then((res) => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
+      .then(res => this._getResponseData(res))
       .then((data) => {
         return data
       })
@@ -23,7 +30,7 @@ export default class Api {
     return fetch('https://mesto.nomoreparties.co/v1/cohort-59/cards', {
       headers: this._headers
     })
-      .then((res) => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
+      .then(res => this._getResponseData(res))
       .then((data) => {
         return data
       })
@@ -41,7 +48,7 @@ export default class Api {
         about: job
       })
     })
-      .then((res) => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
+      .then(res => this._getResponseData(res))
       .catch((err) => {
         console.log(err)
       })}
@@ -55,7 +62,7 @@ export default class Api {
         link
       })
     })
-      .then((res) => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
+      .then(res => this._getResponseData(res))
       .catch((err) => {
         console.log(err)
       })
@@ -66,7 +73,7 @@ export default class Api {
       method: 'DELETE',
       headers: this._headers
     })
-      .then((res) => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
+      .then(res => this._getResponseData(res))
       .catch((err) => {
         console.log(err)
       })
@@ -77,7 +84,7 @@ export default class Api {
       method: 'PUT',
       headers: this._headers
     })
-      .then((res) => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
+      .then(res => this._getResponseData(res))
       .catch((err) => {
         console.log(err)
       })
@@ -88,7 +95,7 @@ export default class Api {
       method: 'DELETE',
       headers: this._headers
     })
-      .then((res) => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
+      .then(res => this._getResponseData(res))
       .catch((err) => {
         console.log(err)
       })
@@ -102,7 +109,7 @@ export default class Api {
         avatar
       })
     })
-      .then((res) => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
+      .then(res => this._getResponseData(res))
       .catch((err) => {
         console.log(err)
       })
