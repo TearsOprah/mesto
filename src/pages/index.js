@@ -224,7 +224,7 @@ const createCard = (item) => {
 api.getInitialCards()
   .then(data => {
     // получаем массив, и для каждого элемента массива(объекта) создаем карточку
-    data.forEach(item => {
+    data.reverse().forEach(item => {
       createCard(item)
     })
   })
