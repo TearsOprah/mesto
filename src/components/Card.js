@@ -26,6 +26,12 @@ export default class Card {
   }
 
 
+  // удаление карточки
+  delete() {
+    this._element.remove()
+  }
+
+
   // попап удаления
   _handleDelete() {
     this._openDeletePopup(this._cardId)

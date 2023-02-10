@@ -101,11 +101,11 @@ function handleEditFormSubmit(evt, data) {
 }
 
 
-function handleDeleteCard(cardId) {
-  // console.log(cardId)
-  deletePopup.setElementId(cardId);
-  deletePopup.open()
-}
+// function handleDeleteCard(cardId, card) {
+//   // console.log(cardId)
+//   deletePopup.setElementId(cardId);
+//   deletePopup.open()
+// }
 
 
 function handleAvatarFormSubmit(ev, data) {
@@ -163,20 +163,17 @@ const avatarPopup = new PopupWithForm(popupAvatarElementSelector, handleAvatarFo
 avatarPopup.setEventListeners();
 
 
-const deletePopup = new PopupWithConfirm(popupDeleteElementSelector, (ev, cardId) => {
+const deletePopup = new PopupWithConfirm(popupDeleteElementSelector, (ev, cardId, card) => {
 
   ev.preventDefault()
-
   api.deleteCard(cardId)
     .then(() => {
-      document.getElementById(cardId).remove()
+      card.delete()
       deletePopup.close()
     })
     .catch((err) => {
       console.log(err)
     })
-
-
 })
 deletePopup.setEventListeners();
 
@@ -187,13 +184,16 @@ const createCard = (item) => {
     data: item,
     template: cardTemplate,
     handleCardClick: () => imagePopup.open(item.name, item.link),
-    handleDeleteCard,
+
+    handleDeleteCard: (cardId) => {
+      deletePopup.setCard(card)
+      deletePopup.setElementId(cardId);
+      deletePopup.open()
+    },
 
     handleSetLike: (cardId) => {
       api.setLike(cardId)
         .then((item) => {
-          console.log(item)
-          console.log(cardId)
           card.handleLikeCard(item)
         })
         .catch((err) => {
@@ -204,9 +204,6 @@ const createCard = (item) => {
     handleDeleteLike: (cardId) => {
       api.deleteLike(cardId)
         .then((item) => {
-          // console.log('данные карточки:')
-          // console.log(item)
-          console.log('id этой карточки: ' + cardId)
           card.handleLikeCard(item)
         })
         .catch((err) => {
