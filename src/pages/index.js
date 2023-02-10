@@ -47,7 +47,8 @@ const handleAddFormSubmit = (e, data) => {
   e.preventDefault();
   api.addNewCard(data)
     .then(data => {
-      createCard(data)
+      createCard(data);
+      addPopup.close();
     })
     .catch((err) => {
       console.log(err)
@@ -56,7 +57,6 @@ const handleAddFormSubmit = (e, data) => {
       renderLoading(formAddElement.querySelector('.popup__save-button') ,false)
     })
 
-  addPopup.close()
   // отключаем кнопку добавить после создания новой карточки
   addValidator.disableSubmitButton()
 }
@@ -90,6 +90,7 @@ function handleEditFormSubmit(evt, data) {
   api.setUserData(data)
     .then(res => {
       userInfo.setUserInfo(res);
+      editPopup.close();
     })
     .catch((err) => {
       console.log(err)
@@ -97,8 +98,6 @@ function handleEditFormSubmit(evt, data) {
     .finally(() => {
       renderLoading(formEditElement.querySelector('.popup__save-button') ,false)
     })
-
-  editPopup.close()
 }
 
 
@@ -115,17 +114,18 @@ function handleAvatarFormSubmit(ev, data) {
   ev.preventDefault();
   // отправляем запрос
   api.updateAvatar(data)
-    .then()
+    .then(() => {
+      //закрываем попап
+      avatarPopup.close();
+    })
     .catch((err) => {
-      console.log(err)
+      console.log(err);
     })
     .finally(() => {
       renderLoading(formAvatarElement.querySelector('.popup__save-button'),false)
     })
   // подменяем картинку на картинку из ответа
   document.querySelector(profileAvatarElementSelector).src = data.avatar
-  //закрываем попап
-  avatarPopup.close()
 }
 
 
