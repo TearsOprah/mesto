@@ -49,6 +49,9 @@ const handleAddFormSubmit = (e, data) => {
     .then(data => {
       createCard(data)
     })
+    .catch((err) => {
+      console.log(err)
+    })
     .finally(() => {
       renderLoading(formAddElement.querySelector('.popup__save-button') ,false)
     })
@@ -68,6 +71,9 @@ api.getUserData()
   .then(data => {
     userInfo.setUserInfo(data)
   })
+  .catch((err) => {
+    console.log(err)
+  })
 
 
 // заполнение инпутов формы редактированя профиля
@@ -84,6 +90,9 @@ function handleEditFormSubmit(evt, data) {
   api.setUserData(data)
     .then(res => {
       userInfo.setUserInfo(res);
+    })
+    .catch((err) => {
+      console.log(err)
     })
     .finally(() => {
       renderLoading(formEditElement.querySelector('.popup__save-button') ,false)
@@ -107,6 +116,9 @@ function handleAvatarFormSubmit(ev, data) {
   // отправляем запрос
   api.updateAvatar(data)
     .then()
+    .catch((err) => {
+      console.log(err)
+    })
     .finally(() => {
       renderLoading(formAvatarElement.querySelector('.popup__save-button'),false)
     })
@@ -160,6 +172,9 @@ const deletePopup = new PopupWithConfirm(popupDeleteElementSelector, (ev, cardId
       document.getElementById(cardId).remove()
       deletePopup.close()
     })
+    .catch((err) => {
+      console.log(err)
+    })
 
 
 })
@@ -181,6 +196,9 @@ const createCard = (item) => {
           console.log(cardId)
           card.handleLikeCard(item)
         })
+        .catch((err) => {
+          console.log(err)
+        })
   },
 
     handleDeleteLike: (cardId) => {
@@ -190,6 +208,9 @@ const createCard = (item) => {
           // console.log(item)
           console.log('id этой карточки: ' + cardId)
           card.handleLikeCard(item)
+        })
+        .catch((err) => {
+          console.log(err)
         })
     },
 
@@ -207,6 +228,9 @@ api.getInitialCards()
     data.forEach(item => {
       createCard(item)
     })
+  })
+  .catch((err) => {
+    console.log(err)
   })
 
 

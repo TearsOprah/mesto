@@ -21,9 +21,6 @@ export default class Api {
       .then((data) => {
         return data
       })
-      .catch((err) => {
-        console.log(err)
-      })
   }
 
   getInitialCards() {
@@ -33,9 +30,6 @@ export default class Api {
       .then(res => this._getResponseData(res))
       .then((data) => {
         return data
-      })
-      .catch((err) => {
-        console.log(err)
       })
   }
 
@@ -49,9 +43,7 @@ export default class Api {
       })
     })
       .then(res => this._getResponseData(res))
-      .catch((err) => {
-        console.log(err)
-      })}
+  }
 
   addNewCard({name, link}) {
     return fetch('https://mesto.nomoreparties.co/v1/cohort-59/cards', {
@@ -63,9 +55,6 @@ export default class Api {
       })
     })
       .then(res => this._getResponseData(res))
-      .catch((err) => {
-        console.log(err)
-      })
   }
 
   deleteCard(cardId) {
@@ -74,9 +63,6 @@ export default class Api {
       headers: this._headers
     })
       .then(res => this._getResponseData(res))
-      .catch((err) => {
-        console.log(err)
-      })
   }
 
   setLike(cardId) {
@@ -85,9 +71,6 @@ export default class Api {
       headers: this._headers
     })
       .then(res => this._getResponseData(res))
-      .catch((err) => {
-        console.log(err)
-      })
   }
 
   deleteLike(cardId) {
@@ -96,9 +79,6 @@ export default class Api {
       headers: this._headers
     })
       .then(res => this._getResponseData(res))
-      .catch((err) => {
-        console.log(err)
-      })
   }
 
   updateAvatar({ avatar }) {
@@ -110,9 +90,6 @@ export default class Api {
       })
     })
       .then(res => this._getResponseData(res))
-      .catch((err) => {
-        console.log(err)
-      })
   }
 }
 
