@@ -115,6 +115,9 @@ function handleAvatarFormSubmit(ev, data) {
   // отправляем запрос
   api.updateAvatar(data)
     .then(() => {
+      // подменяем картинку на картинку из ответа
+      // обновляем данные
+      userInfo.setUserInfo(data)
       //закрываем попап
       avatarPopup.close();
     })
@@ -124,8 +127,7 @@ function handleAvatarFormSubmit(ev, data) {
     .finally(() => {
       renderLoading(formAvatarElement.querySelector('.popup__save-button'),false)
     })
-  // подменяем картинку на картинку из ответа
-  document.querySelector(profileAvatarElementSelector).src = data.avatar
+
 }
 
 
