@@ -42,14 +42,14 @@ const api = new Api({
 
 
 // загрузка карточек и данных пользователя с сервера
-Promise.all([api.getInitialCards(), api.getUserData()])
-  .then(([initialCards, userData]) => {
+Promise.all([api.getUserData(), api.getInitialCards()])
+  .then(([userData, initialCards]) => {
+    // получаем данные пользователя с сервера и вставляем в верстку
+    userInfo.setUserInfo(userData)
     // получаем массив, и для каждого элемента массива(объекта) создаем карточку
     initialCards.reverse().forEach(item => {
       createCard(item)
     })
-    // получаем данные пользователя с сервера и вставляем в верстку
-    userInfo.setUserInfo(userData)
   })
   .catch(err => {
     console.log(err)
